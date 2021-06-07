@@ -1,2 +1,2 @@
-public class RastavljacIzlazni {
+public class RastavljacIzlazni extends Rastavljac{
 }

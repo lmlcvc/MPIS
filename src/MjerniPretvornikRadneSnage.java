@@ -1,2 +1,3 @@
-public class MjerniPretvornikRadneSnage {
+public class MjerniPretvornikRadneSnage extends MjerniUredaji{
+    float radnaSnaga;
 }

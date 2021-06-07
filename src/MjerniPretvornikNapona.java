@@ -1,2 +1,3 @@
-public class MjerniPretvornikNapona {
+public class MjerniPretvornikNapona extends MjerniUredaji{
+    float napon;
 }
