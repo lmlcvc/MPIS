@@ -1,5 +1,10 @@
-public abstract class MjerniUredaji extends DalekovodnoPolje{
+public abstract class MjerniUredaji extends DalekovodnoPolje implements Napajanje {
 
-    public float ocitaj() {
+    public void /*float*/ ocitaj() {
+    }
+
+    @Override
+    public void ukljuciNapajanje() {
+
     }
 }

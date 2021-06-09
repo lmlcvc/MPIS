@@ -3,9 +3,9 @@ public abstract class Polje {
     private RastavljacSabirnicki rastavljacS1;
     private RastavljacSabirnicki rastavljacS2;
 
-    public void ukljuci(){
+    public void ukljuciGrupneSignale(){
     }
 
-    public void iskljuci(){
+    public void iskljuciGrupneSignale(){
     }
 }
