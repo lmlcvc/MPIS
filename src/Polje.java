@@ -1,11 +1,16 @@
 public abstract class Polje {
-    private Prekidac prekidac;
-    private RastavljacSabirnicki rastavljacS1;
-    private RastavljacSabirnicki rastavljacS2;
 
-    public void ukljuciGrupneSignale(){
+    boolean ukljuceno;
+    boolean napajanje = true;
+    PrimOpremaUp primOpremaUp;
+
+    Prekidac prekidac;
+    RastavljacSabirnicki rastavljacS1;
+    RastavljacSabirnicki rastavljacS2;
+
+    public void ukljuciGrupneSignale() {
     }
 
-    public void iskljuciGrupneSignale(){
+    public void iskljuciGrupneSignale() {
     }
 }

@@ -6,6 +6,7 @@ public abstract class Zastita implements Napajanje {
     String identifikator;
     IspravnostZastite ispravnost;
     boolean napajanje = true;
+    boolean ukljucena = false;
 
     public abstract void sekOpremaUp();
 

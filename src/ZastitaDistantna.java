@@ -1,4 +1,4 @@
-public class DistantnaZastita extends Zastita {
+public class ZastitaDistantna extends Zastita {
 
     Iskljucenje iskljucenje;
     UredajKvar uredajKvar;

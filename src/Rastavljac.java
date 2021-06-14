@@ -23,5 +23,5 @@ public abstract class Rastavljac extends Polje implements Napajanje {
     @Override
     public boolean provjeriNapajanje() {
         return this.napajanje;
-    }
+    } // TODO: blago nepotrebno?
 }

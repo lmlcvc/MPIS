@@ -1,4 +1,4 @@
-public class NadstrujnaZastita extends Zastita {
+public class ZastitaNadstrujna extends Zastita {
 
     Npc npc;
     Vpc vpc;

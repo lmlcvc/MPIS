@@ -1,7 +1,7 @@
 public class DalekovodnoPolje extends Polje {
 
-    NadstrujnaZastita nadstrujnaZastita;
-    DistantnaZastita distantnaZastita;
+    ZastitaNadstrujna nadstrujnaZastita;
+    ZastitaDistantna distantnaZastita;
     Apu apu;
 
     MjerniPretvornikRadneSnage mprs;
@@ -11,9 +11,27 @@ public class DalekovodnoPolje extends Polje {
     RastavljacIzlazni rastavljacIzlazni;
     RastavljacUzemljenja rastavljacUzemljenja;
 
-    OstaleZastiteIsk ostaleZastiteIsk;
-    ZastiteUp zastiteUp;
-    PrimOpremaUp primOpremaUp; // TODO: treba li staviti ovo u Polje?
     SekOpremaUp sekOpremaUp;
+
+    ZastiteUp zastiteUp;
     ZastiteIsk zastiteIsk;
+    OstaleZastiteIsk ostaleZastiteIsk;
+
+    public DalekovodnoPolje() {
+        if (this.napajanje) {
+            this.ukljuceno = true;
+        }
+
+        this.rastavljacS1 = new RastavljacSabirnicki("S1 DP");
+        this.rastavljacS1.ukljuci();
+
+        this.rastavljacS2 = new RastavljacSabirnicki("S2 DP");
+        this.rastavljacS2.ukljuci();
+
+        this.rastavljacUzemljenja = new RastavljacUzemljenja("Rastavljač uzemljenja DP");
+
+        this.rastavljacIzlazni = new RastavljacIzlazni("izlazni rastavljač DP");
+
+        this.prekidac = new PrekidacSF6Koncar("Prekidač SF6 DP");
+    }
 }
