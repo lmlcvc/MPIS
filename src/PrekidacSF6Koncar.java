@@ -3,10 +3,11 @@ public class PrekidacSF6Koncar extends Prekidac {
     EnumProradaPrestanak gubitakSF6Upozorenje, gubitakN2BlokadaRada, minTlakUljaBlokada, gubitakSF6BlokadaRada;
     EnumProradaPrestanak SF6N2Ulje, gubitakUljaBlokadaRada, APUBlokada, kvarGrijanja;
 
-    public PrekidacSF6Koncar(String id) {
+    public PrekidacSF6Koncar(String id, String modul) {
         initVarijable();
 
         this.identifikator = id;
+        this.modul = modul;
     }
 
     public void initVarijable() {
@@ -22,5 +23,19 @@ public class PrekidacSF6Koncar extends Prekidac {
 
     public void PrimOpremaUp() {
 
+    }
+
+    @Override
+    public String posaljiSignal() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("TS A - 220 kV - ");
+        sb.append(this.modul);
+        sb.append(" - ");
+        sb.append(this.getClass());
+        sb.append(" - stanje - ");
+        sb.append(this.stanje);
+
+        return sb.toString();
     }
 }

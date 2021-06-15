@@ -1,5 +1,6 @@
 public abstract class Rastavljac extends Polje implements Napajanje {
     String identifikator;
+    String modul;
     StanjePrekidacRastavljac stanje;
     RastavljacKomanda komanda;
     boolean napajanje = true;
@@ -19,6 +20,8 @@ public abstract class Rastavljac extends Polje implements Napajanje {
             System.out.println("Nemoguće isključiti, napajanje nije spojeno.");
         }
     }
+
+    public abstract String posaljiSignal();
 
     @Override
     public boolean provjeriNapajanje() {

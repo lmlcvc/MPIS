@@ -1,5 +1,8 @@
 public abstract class Polje {
 
+    RastavljacIzlazni rastavljacIzlazni;
+    RastavljacUzemljenja rastavljacUzemljenja;
+
     boolean ukljuceno;
     boolean napajanje = true;
     PrimOpremaUp primOpremaUp;

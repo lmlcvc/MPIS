@@ -4,6 +4,7 @@ public abstract class Prekidac extends Polje implements Napajanje {
 
     String identifikator;
     StanjePrekidacRastavljac stanje;
+    String modul;
 
     ArrayList<Enum> varijable = new ArrayList<Enum>();
 
@@ -12,7 +13,12 @@ public abstract class Prekidac extends Polje implements Napajanje {
 
     public void ukljuci() {
         if (this.napajanje) {
-            this.stanje = StanjePrekidacRastavljac.UKLJUCEN;
+            if(this.stanje == StanjePrekidacRastavljac.UKLJUCEN){
+                System.out.println("Prekidač " + this.identifikator + " je već uključen.");
+            } else {
+                System.out.println("Uključivanje prekidača " + this.identifikator);
+                this.stanje = StanjePrekidacRastavljac.UKLJUCEN;
+            }
         } else {
             System.out.println("Nemoguće uključiti, napajanje nije spojeno.");
         }
@@ -26,8 +32,8 @@ public abstract class Prekidac extends Polje implements Napajanje {
         }
     }
 
-    public void posaljiSignal() {
-    }
+    // TODO: funkcija za dobivanje sgnala iz trenutnog stanja uređaja
+    public abstract String posaljiSignal();
 
     @Override
     public boolean provjeriNapajanje() {
