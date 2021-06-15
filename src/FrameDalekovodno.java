@@ -10,7 +10,7 @@ public class FrameDalekovodno extends JFrame {
     private static JButton rastavljacUzemljenjaButton;
     private static JButton prekidacButton;
 
-    public FrameDalekovodno(DalekovodnoPolje dalekovodnoPolje) {
+    public FrameDalekovodno() {
         setLayout(null);
         setSize(700, 1000);
         setVisible(true);
@@ -21,8 +21,8 @@ public class FrameDalekovodno extends JFrame {
         panel.paint(g);
 
         this.initButtons();
-        this.initButtonTexts(dalekovodnoPolje);
-        this.addButtonClickListeners(dalekovodnoPolje);
+        this.initButtonTexts();
+        this.addButtonClickListeners();
     }
 
     public void initButtons() {
@@ -53,106 +53,111 @@ public class FrameDalekovodno extends JFrame {
 
     }
 
-    private static void addButtonClickListeners(DalekovodnoPolje dalekovodnoPolje){
+    private static void addButtonClickListeners() {
         prekidacButton.addActionListener(actionEvent -> {
             // isključivanje prekidača
-            if(dalekovodnoPolje.prekidac.stanje == StanjePrekidacRastavljac.UKLJUCEN){
-                dalekovodnoPolje.prekidac.iskljuci();
-            } else if(dalekovodnoPolje.prekidac.stanje == StanjePrekidacRastavljac.ISKLJUCEN) { // uključivanje prekidača - provjere
-                if((dalekovodnoPolje.rastavljacS1.stanje == StanjePrekidacRastavljac.UKLJUCEN
-                || dalekovodnoPolje.rastavljacS2.stanje == StanjePrekidacRastavljac.UKLJUCEN )
-                && dalekovodnoPolje.rastavljacIzlazni.stanje == StanjePrekidacRastavljac.UKLJUCEN
-                && dalekovodnoPolje.rastavljacUzemljenja.stanje == StanjePrekidacRastavljac.UKLJUCEN){
-                    dalekovodnoPolje.prekidac.ukljuci();
+            if (Postrojenje.dalekovodnoPolje.prekidac.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
+                Postrojenje.dalekovodnoPolje.prekidac.iskljuci();
+            } else if (Postrojenje.dalekovodnoPolje.prekidac.stanje == StanjePrekidacRastavljac.ISKLJUCEN) { // uključivanje prekidača - provjere
+                if ((Postrojenje.dalekovodnoPolje.rastavljacS1.stanje == StanjePrekidacRastavljac.UKLJUCEN
+                        || Postrojenje.dalekovodnoPolje.rastavljacS2.stanje == StanjePrekidacRastavljac.UKLJUCEN)
+                        && Postrojenje.dalekovodnoPolje.rastavljacIzlazni.stanje == StanjePrekidacRastavljac.UKLJUCEN
+                        && Postrojenje.dalekovodnoPolje.rastavljacUzemljenja.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
+                    Postrojenje.dalekovodnoPolje.prekidac.ukljuci();
                 }
             }
-            initButtonTexts(dalekovodnoPolje);
+            initButtonTexts();
+            SwingUtilities.updateComponentTreeUI(Postrojenje.postrojenje);
         });
 
         rastavljacS1Button.addActionListener(actionEvent -> {
             // isključen - uključi
-            if(dalekovodnoPolje.rastavljacS1.stanje == StanjePrekidacRastavljac.ISKLJUCEN){
-                dalekovodnoPolje.rastavljacS1.ukljuci();
-            } else if(dalekovodnoPolje.rastavljacS1.stanje == StanjePrekidacRastavljac.UKLJUCEN) { // uključen - provjera
+            if (Postrojenje.dalekovodnoPolje.rastavljacS1.stanje == StanjePrekidacRastavljac.ISKLJUCEN) {
+                Postrojenje.dalekovodnoPolje.rastavljacS1.ukljuci();
+            } else if (Postrojenje.dalekovodnoPolje.rastavljacS1.stanje == StanjePrekidacRastavljac.UKLJUCEN) { // uključen - provjera
                 // ili da S2 radi, ili da je prekidač isljučen
-                if((dalekovodnoPolje.rastavljacS2.stanje == StanjePrekidacRastavljac.UKLJUCEN)
-                || (dalekovodnoPolje.prekidac.stanje == StanjePrekidacRastavljac.ISKLJUCEN)){
-                    dalekovodnoPolje.rastavljacS1.iskljuci();
+                if ((Postrojenje.dalekovodnoPolje.rastavljacS2.stanje == StanjePrekidacRastavljac.UKLJUCEN)
+                        || (Postrojenje.dalekovodnoPolje.prekidac.stanje == StanjePrekidacRastavljac.ISKLJUCEN)) {
+                    Postrojenje.dalekovodnoPolje.rastavljacS1.iskljuci();
                 }
             }
-            initButtonTexts(dalekovodnoPolje);
+            initButtonTexts();
+            SwingUtilities.updateComponentTreeUI(Postrojenje.postrojenje);
         });
 
         rastavljacS2Button.addActionListener(actionEvent -> {
             // isključen - uključi
-            if(dalekovodnoPolje.rastavljacS2.stanje == StanjePrekidacRastavljac.ISKLJUCEN){
-                dalekovodnoPolje.rastavljacS2.ukljuci();
-            } else if(dalekovodnoPolje.rastavljacS2.stanje == StanjePrekidacRastavljac.UKLJUCEN) { // uključen - provjera
+            if (Postrojenje.dalekovodnoPolje.rastavljacS2.stanje == StanjePrekidacRastavljac.ISKLJUCEN) {
+                Postrojenje.dalekovodnoPolje.rastavljacS2.ukljuci();
+            } else if (Postrojenje.dalekovodnoPolje.rastavljacS2.stanje == StanjePrekidacRastavljac.UKLJUCEN) { // uključen - provjera
                 // ili da S1 radi, ili da je prekidač isljučen
-                if((dalekovodnoPolje.rastavljacS1.stanje == StanjePrekidacRastavljac.UKLJUCEN)
-                        || (dalekovodnoPolje.prekidac.stanje == StanjePrekidacRastavljac.ISKLJUCEN)){
-                    dalekovodnoPolje.rastavljacS2.iskljuci();
+                if ((Postrojenje.dalekovodnoPolje.rastavljacS1.stanje == StanjePrekidacRastavljac.UKLJUCEN)
+                        || (Postrojenje.dalekovodnoPolje.prekidac.stanje == StanjePrekidacRastavljac.ISKLJUCEN)) {
+                    Postrojenje.dalekovodnoPolje.rastavljacS2.iskljuci();
                 }
             }
-            initButtonTexts(dalekovodnoPolje);
+            initButtonTexts();
+            SwingUtilities.updateComponentTreeUI(Postrojenje.postrojenje);
         });
 
         // TODO: koji rastavljač ovisi o kojem
         rastavljacUzemljenjaButton.addActionListener(actionEvent -> {
             // isključen - uključi
-            if(dalekovodnoPolje.rastavljacUzemljenja.stanje == StanjePrekidacRastavljac.ISKLJUCEN){
-                if(dalekovodnoPolje.rastavljacIzlazni.stanje == StanjePrekidacRastavljac.ISKLJUCEN){
-                    dalekovodnoPolje.rastavljacUzemljenja.ukljuci();
+            if (Postrojenje.dalekovodnoPolje.rastavljacUzemljenja.stanje == StanjePrekidacRastavljac.ISKLJUCEN) {
+                if (Postrojenje.dalekovodnoPolje.rastavljacIzlazni.stanje == StanjePrekidacRastavljac.ISKLJUCEN) {
+                    Postrojenje.dalekovodnoPolje.rastavljacUzemljenja.ukljuci();
                 }
-            } else if(dalekovodnoPolje.rastavljacUzemljenja.stanje == StanjePrekidacRastavljac.UKLJUCEN) { // uključen - provjera
+            } else if (Postrojenje.dalekovodnoPolje.rastavljacUzemljenja.stanje == StanjePrekidacRastavljac.UKLJUCEN) { // uključen - provjera
                 // prekidač mora biti isključen
-                if(dalekovodnoPolje.prekidac.stanje == StanjePrekidacRastavljac.ISKLJUCEN){
-                    dalekovodnoPolje.rastavljacUzemljenja.iskljuci();
+                if (Postrojenje.dalekovodnoPolje.prekidac.stanje == StanjePrekidacRastavljac.ISKLJUCEN) {
+                    Postrojenje.dalekovodnoPolje.rastavljacUzemljenja.iskljuci();
                 }
             }
-            initButtonTexts(dalekovodnoPolje);
+            initButtonTexts();
+            SwingUtilities.updateComponentTreeUI(Postrojenje.postrojenje);
         });
 
         rastavljacIzlazniButton.addActionListener(actionEvent -> {
             // isključen - uključi
-            if(dalekovodnoPolje.rastavljacIzlazni.stanje == StanjePrekidacRastavljac.ISKLJUCEN){
-                dalekovodnoPolje.rastavljacIzlazni.ukljuci();
-            } else if(dalekovodnoPolje.rastavljacIzlazni.stanje == StanjePrekidacRastavljac.UKLJUCEN) { // uključen - provjera
+            if (Postrojenje.dalekovodnoPolje.rastavljacIzlazni.stanje == StanjePrekidacRastavljac.ISKLJUCEN) {
+                Postrojenje.dalekovodnoPolje.rastavljacIzlazni.ukljuci();
+            } else if (Postrojenje.dalekovodnoPolje.rastavljacIzlazni.stanje == StanjePrekidacRastavljac.UKLJUCEN) { // uključen - provjera
                 // prekidač mora biti isključen
-                if(dalekovodnoPolje.prekidac.stanje == StanjePrekidacRastavljac.ISKLJUCEN){
-                    dalekovodnoPolje.rastavljacIzlazni.iskljuci();
+                if (Postrojenje.dalekovodnoPolje.prekidac.stanje == StanjePrekidacRastavljac.ISKLJUCEN) {
+                    Postrojenje.dalekovodnoPolje.rastavljacIzlazni.iskljuci();
                 }
             }
-            initButtonTexts(dalekovodnoPolje);
+            initButtonTexts();
+            SwingUtilities.updateComponentTreeUI(Postrojenje.postrojenje);
         });
     }
 
-    private static void initButtonTexts(DalekovodnoPolje dalekovodnoPolje) {
-        if (dalekovodnoPolje.rastavljacS1.stanje == StanjePrekidacRastavljac.UKLJUCEN){
+    private static void initButtonTexts() {
+        if (Postrojenje.dalekovodnoPolje.rastavljacS1.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
             rastavljacS1Button.setText("Rastavljač S1: 1");
         } else {
             rastavljacS1Button.setText("Rastavljač S1: 0");
         }
 
-        if (dalekovodnoPolje.rastavljacS2.stanje == StanjePrekidacRastavljac.UKLJUCEN){
+        if (Postrojenje.dalekovodnoPolje.rastavljacS2.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
             rastavljacS2Button.setText("Rastavljač S2: 1");
         } else {
             rastavljacS2Button.setText("Rastavljač S2: 0");
         }
 
-        if (dalekovodnoPolje.rastavljacIzlazni.stanje == StanjePrekidacRastavljac.UKLJUCEN){
+        if (Postrojenje.dalekovodnoPolje.rastavljacIzlazni.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
             rastavljacIzlazniButton.setText("Izlazni rastavljač: 1");
         } else {
             rastavljacIzlazniButton.setText("Izlazni rastavljač: 0");
         }
 
-        if (dalekovodnoPolje.rastavljacUzemljenja.stanje == StanjePrekidacRastavljac.UKLJUCEN){
+        if (Postrojenje.dalekovodnoPolje.rastavljacUzemljenja.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
             rastavljacUzemljenjaButton.setText("Rast. uzemljenja: 1");
         } else {
             rastavljacUzemljenjaButton.setText("Rast. uzemljenja: 0");
         }
 
-        if (dalekovodnoPolje.prekidac.stanje == StanjePrekidacRastavljac.UKLJUCEN){
+        if (Postrojenje.dalekovodnoPolje.prekidac.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
             prekidacButton.setText("Prekidač: 1");
         } else {
             prekidacButton.setText("Prekidač: 0");

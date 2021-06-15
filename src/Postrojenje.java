@@ -1,54 +1,42 @@
+import sun.java2d.x11.X11SurfaceDataProxy;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
 
 public class Postrojenje extends JFrame implements IScenariji {
+    public static Postrojenje postrojenje;
+
     static DalekovodnoPolje dalekovodnoPolje;
     static SpojnoPolje spojnoPolje;
 
-    /*private JButton ukljucitiDalekovodnoNaS1Button;
-    private JButton ukljucitiDalekovodnoNaS2Button;
-    private JButton iskljucitiDalekovodnoSpojenoNaS1;
-    private JButton iskljucitiDalekovodnoSpojenoNaS2;
-    private JButton prespojitiUkljucenoDalekovodnoNaS1;
-    private JButton prespojitiUkljucenoDalekovodnoNaS2;*/
 
-    private static Label labelMain;
+    private static JLabel labelMain;
+    private static JLabel labelSignaliDV;
+    private static JLabel labelSignaliSP;
 
     private JButton button1;
     private JButton button2;
+    private JButton buttonSignaliDV;
+    private JButton buttonSignaliSP;
     private final JComboBox<String> dalekovodnoCombo;
     private final JComboBox<String> spojnoCombo;
 
-    static ZastitaDistantna zastitaDistantna = new ZastitaDistantna();
-    static ZastitaNadstrujna zastitaNadstrujna = new ZastitaNadstrujna();
-
 
     public Postrojenje() {
-        // instanciranje spojnog i dalekovodnog polja
-        dalekovodnoPolje = new DalekovodnoPolje();
-        spojnoPolje = new SpojnoPolje();
-
-        // postavljanje kućica s tekstom
-        labelMain = new Label("");
-        labelMain.setBounds(100, 700, 400, 40);
-        add(labelMain);
-
-
         // postavljanje prozora
         // setLayout(new GridLayout(0, 2));
         setLayout(null);
         setSize(1000, 1000);
         setVisible(true);
 
-        // button1.setBounds(XPosition, YPosition, WidthOFButton, HeightOFButton);
-        button1.setText("Dalekovodno polje");
-        button1.setBounds(225, 400, 200, 100);
-        add(button1);
+        // instanciranje spojnog i dalekovodnog polja
+        dalekovodnoPolje = new DalekovodnoPolje();
+        spojnoPolje = new SpojnoPolje();
 
-        button2.setText("Spojno polje");
-        button2.setBounds(525, 400, 200, 100);
-        add(button2);
+        // postavljanje kućica s tekstom
+        initJLabels();
+        initButtons();
 
         String naredbe[] = {"Uključi sistem sabirnica 1", "Uključi sistem sabirnica 2",
                 "Uključi sistem 1 na sistem 2", "Uključi sistem 2 na sistem 1",
@@ -63,9 +51,6 @@ public class Postrojenje extends JFrame implements IScenariji {
         spojnoCombo.setVisible(false);
         add(spojnoCombo);
 
-        button1.addActionListener(actionEvent ->
-                dalekovodnoCombo.setVisible(!dalekovodnoCombo.isVisible()));
-        button2.addActionListener(actionEvent -> spojnoCombo.setVisible(!spojnoCombo.isVisible()));
 
         dalekovodnoCombo.addActionListener(actionEvent -> dalekovodnoComboActions(dalekovodnoCombo, naredbe));
         spojnoCombo.addActionListener(actionEvent -> spojnoComboActions(spojnoCombo, naredbe));
@@ -73,13 +58,13 @@ public class Postrojenje extends JFrame implements IScenariji {
 
 
     // metode za rukovanje scenarijima
-    // TODO: pametnije napraviti provjere
+    // TODO: pametnije napraviti provjere?
 
     @Override
     public void ukljuciDalekovodnoS1() {
         // TODO: treba li provjera je li već uključeno?
 
-        if(Postrojenje.dalekovodnoPolje.ukljuceno){
+        if (Postrojenje.dalekovodnoPolje.ukljuceno) {
             labelMain.setText("Dalekovodno polje je već uključeno");
         } else {
             Postrojenje.dalekovodnoPolje.rastavljacUzemljenja.ukljuci();
@@ -94,61 +79,16 @@ public class Postrojenje extends JFrame implements IScenariji {
 
     @Override
     public void ukljuciDalekovodnoS2() {
-        labelMain.setText("");
-        StringBuilder sb = new StringBuilder();
 
-        /*
-        if (Postrojenje.dalekovodnoPolje.rastavljacUzemljenja.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
-            sb.append("Rastavljač ")
-                    .append(Postrojenje.dalekovodnoPolje.rastavljacUzemljenja.identifikator)
-                    .append(" već je uključen.")
-                    .append(System.lineSeparator());
+        if (Postrojenje.dalekovodnoPolje.ukljuceno) {
+            labelMain.setText("Dalekovodno polje je već uključeno");
         } else {
             Postrojenje.dalekovodnoPolje.rastavljacUzemljenja.ukljuci();
-            sb.append("Uključivanje rastavljača uzemljenja ")
-                    .append(System.lineSeparator());
-        }
-
-
-        if (Postrojenje.dalekovodnoPolje.rastavljacS2.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
-            sb.append("Rastavljač ")
-                    .append(Postrojenje.dalekovodnoPolje.rastavljacS2.identifikator)
-                    .append(" već je uključen.").append(System.lineSeparator());
-        } else {
-            Postrojenje.dalekovodnoPolje.rastavljacUzemljenja.ukljuci();
-            sb.append("Uključivanje rastavljača ")
-                    .append(Postrojenje.dalekovodnoPolje.rastavljacS2.identifikator)
-                    .append(System.lineSeparator());
-        }
-
-
-        if (Postrojenje.dalekovodnoPolje.rastavljacIzlazni.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
-            sb.append("Rastavljač ")
-                    .append(Postrojenje.dalekovodnoPolje.rastavljacIzlazni.identifikator)
-                    .append(" već je uključen.")
-                    .append(System.lineSeparator());
-        } else {
+            Postrojenje.dalekovodnoPolje.rastavljacS1.ukljuci();
             Postrojenje.dalekovodnoPolje.rastavljacIzlazni.ukljuci();
-            sb.append("Uključivanje rastavljača ")
-                    .append(Postrojenje.dalekovodnoPolje.rastavljacIzlazni.identifikator)
-                    .append(System.lineSeparator());
-        }
-
-
-        if (Postrojenje.dalekovodnoPolje.prekidac.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
-            sb.append("Prekidač ")
-                    .append(Postrojenje.dalekovodnoPolje.prekidac.identifikator)
-                    .append(" već je uključen.")
-                    .append(System.lineSeparator());
-        } else {
             Postrojenje.dalekovodnoPolje.prekidac.ukljuci();
-            sb.append("Uključivanje prekidača ")
-                    .append(Postrojenje.dalekovodnoPolje.prekidac.identifikator)
-                    .append(System.lineSeparator());
+            labelMain.setText("Dalekovodno polje spojeno na S2 uključeno");
         }
-         */
-
-        labelMain.setText("Dalekovodno polje spojeno na S2 uključeno");
         System.out.println("UKLJUČIVANJE: Dalekovodno polje spojeno na S2 uključeno");
     }
 
@@ -227,6 +167,73 @@ public class Postrojenje extends JFrame implements IScenariji {
         }
     }
 
+    private void initJLabels(){
+        // TODO: prozirno ili n bolje mjesto
+        labelMain = new JLabel();
+        labelMain.setBounds(100, 30, 400, 20);
+        add(labelMain);
+
+        labelSignaliDV = new JLabel();
+        labelSignaliDV.setBounds(50, 575, 500, 150);
+        add(labelSignaliDV);
+
+        labelSignaliSP = new JLabel();
+        labelSignaliSP.setBounds(50, 725, 500, 150);
+        add(labelSignaliSP);
+    }
+
+    private void initButtons(){
+        button1.setText("Dalekovodno polje");
+        button1.setBounds(225, 400, 200, 100);
+        add(button1);
+
+        button2.setText("Spojno polje");
+        button2.setBounds(525, 400, 200, 100);
+        add(button2);
+
+        buttonSignaliDV = new JButton();
+        buttonSignaliDV.setText("Signali DV");
+        buttonSignaliDV.setBounds(50, 550, 150, 50);
+        add(buttonSignaliDV);
+
+        buttonSignaliSP = new JButton();
+        buttonSignaliSP.setText("Signali SP");
+        buttonSignaliSP.setBounds(50, 700, 150, 50);
+        add(buttonSignaliSP);
+
+        addButtonClickListeners();
+    }
+
+    private void addButtonClickListeners(){
+        button1.addActionListener(actionEvent ->
+                dalekovodnoCombo.setVisible(!dalekovodnoCombo.isVisible()));
+        button2.addActionListener(actionEvent -> spojnoCombo.setVisible(!spojnoCombo.isVisible()));
+
+        buttonSignaliDV.addActionListener(actionEvent -> {
+            labelSignaliDV.setText(getAllSignali(dalekovodnoPolje));
+        });
+        buttonSignaliSP.addActionListener(actionEvent -> {
+            labelSignaliSP.setText(getAllSignali(spojnoPolje));
+        });    }
+
+    private String getAllSignali(Polje polje){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("<html><body><p>");
+        sb.append(polje.rastavljacS1.posaljiSignal());
+        sb.append("</br></br>");
+        sb.append(polje.rastavljacS2.posaljiSignal());
+        sb.append("</br></br>");
+        sb.append(polje.rastavljacIzlazni.posaljiSignal());
+        sb.append("</br></br>");
+        sb.append(polje.rastavljacUzemljenja.posaljiSignal());
+        sb.append("</br></br>");
+        sb.append(polje.prekidac.posaljiSignal());
+        sb.append("</p></body></html>");
+
+        return sb.toString();
+    }
+
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
@@ -250,56 +257,56 @@ public class Postrojenje extends JFrame implements IScenariji {
         g2.draw(lineSpojnoSistem1);
     }
 
-    private void dalekovodnoComboActions(JComboBox dalekovodnoCombo, String[] naredbe){
-        if(dalekovodnoCombo.getSelectedItem().toString() == naredbe[0]){
+    private void dalekovodnoComboActions(JComboBox dalekovodnoCombo, String[] naredbe) {
+        if (dalekovodnoCombo.getSelectedItem().toString() == naredbe[0]) {
             ukljuciDalekovodnoS1();
         }
-        if(dalekovodnoCombo.getSelectedItem().toString() == naredbe[1]){
+        if (dalekovodnoCombo.getSelectedItem().toString() == naredbe[1]) {
             ukljuciDalekovodnoS2();
         }
-        if(dalekovodnoCombo.getSelectedItem().toString() == naredbe[2]){
+        if (dalekovodnoCombo.getSelectedItem().toString() == naredbe[2]) {
             prespojiUkljucenoDalekovodnoNaS1();
         }
-        if(dalekovodnoCombo.getSelectedItem().toString() == naredbe[3]){
+        if (dalekovodnoCombo.getSelectedItem().toString() == naredbe[3]) {
             prespojiUkljucenoDalekovodnoNaS2();
         }
-        if(dalekovodnoCombo.getSelectedItem().toString() == naredbe[4]){
+        if (dalekovodnoCombo.getSelectedItem().toString() == naredbe[4]) {
             iskljuciDalekovodnoSpojenoNaS1();
         }
-        if(dalekovodnoCombo.getSelectedItem().toString() == naredbe[5]){
+        if (dalekovodnoCombo.getSelectedItem().toString() == naredbe[5]) {
             iskljuciDalekovodnoSpojenoNaS2();
         }
-        if(dalekovodnoCombo.getSelectedItem().toString() == naredbe[6]){
-            FrameDalekovodno frameDalekovodno = new FrameDalekovodno(dalekovodnoPolje);
+        if (dalekovodnoCombo.getSelectedItem().toString() == naredbe[6]) {
+            FrameDalekovodno frameDalekovodno = new FrameDalekovodno();
         }
     }
 
-    private void spojnoComboActions(JComboBox spojnoCombo, String[] naredbe){
-        if(spojnoCombo.getSelectedItem().toString() == naredbe[0]){
+    private void spojnoComboActions(JComboBox spojnoCombo, String[] naredbe) {
+        if (spojnoCombo.getSelectedItem().toString() == naredbe[0]) {
             ukljuciDalekovodnoS1();
         }
-        if(spojnoCombo.getSelectedItem().toString() == naredbe[1]){
+        if (spojnoCombo.getSelectedItem().toString() == naredbe[1]) {
             ukljuciDalekovodnoS2();
         }
-        if(spojnoCombo.getSelectedItem().toString() == naredbe[2]){
+        if (spojnoCombo.getSelectedItem().toString() == naredbe[2]) {
             prespojiUkljucenoDalekovodnoNaS1();
         }
-        if(spojnoCombo.getSelectedItem().toString() == naredbe[3]){
+        if (spojnoCombo.getSelectedItem().toString() == naredbe[3]) {
             prespojiUkljucenoDalekovodnoNaS2();
         }
-        if(spojnoCombo.getSelectedItem().toString() == naredbe[4]){
+        if (spojnoCombo.getSelectedItem().toString() == naredbe[4]) {
             iskljuciDalekovodnoSpojenoNaS1();
         }
-        if(spojnoCombo.getSelectedItem().toString() == naredbe[5]){
+        if (spojnoCombo.getSelectedItem().toString() == naredbe[5]) {
             iskljuciDalekovodnoSpojenoNaS2();
         }
-        if(spojnoCombo.getSelectedItem().toString() == naredbe[6]){
-            FrameSpojno frameSpojno = new FrameSpojno(spojnoPolje);
+        if (spojnoCombo.getSelectedItem().toString() == naredbe[6]) {
+            FrameSpojno frameSpojno = new FrameSpojno();
         }
     }
 
     public static void main(String[] args) {
-        Postrojenje postrojenje = new Postrojenje();
+        postrojenje = new Postrojenje();
         JPanel panel = new JPanel();
         postrojenje.add(panel);
 

@@ -33,7 +33,19 @@ public abstract class Prekidac extends Polje implements Napajanje {
     }
 
     // TODO: funkcija za dobivanje sgnala iz trenutnog stanja uređaja
-    public abstract String posaljiSignal();
+    public String posaljiSignal(){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("TS A - 220 kV - ");
+        sb.append(this.modul);
+        sb.append(" - ");
+        sb.append(this.getClass().getSimpleName()); // TODO: ili bolje identifikator? složiti ljepše id-e
+        sb.append(" - stanje - ");
+        sb.append(this.stanje);
+        sb.append(System.lineSeparator());
+
+        return sb.toString();
+    }
 
     @Override
     public boolean provjeriNapajanje() {

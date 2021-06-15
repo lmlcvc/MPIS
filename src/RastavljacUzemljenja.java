@@ -10,17 +10,4 @@ public class RastavljacUzemljenja extends Rastavljac {
     public void postaviStanje() {
     }
 
-    @Override
-    public String posaljiSignal() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("TS A - 220 kV - ");
-        sb.append(this.modul);
-        sb.append(" - ");
-        sb.append(this.getClass());
-        sb.append(" - stanje - ");
-        sb.append(this.stanje);
-
-        return sb.toString();
-    }
 }

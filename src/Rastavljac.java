@@ -21,7 +21,19 @@ public abstract class Rastavljac extends Polje implements Napajanje {
         }
     }
 
-    public abstract String posaljiSignal();
+    public String posaljiSignal(){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("TS A - 220 kV - ");
+        sb.append(this.modul);
+        sb.append(" - ");
+        sb.append(this.getClass().getSimpleName());
+        sb.append(" - stanje - ");
+        sb.append(this.stanje);
+        sb.append(System.lineSeparator());
+
+        return sb.toString();
+    }
 
     @Override
     public boolean provjeriNapajanje() {
