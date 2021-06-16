@@ -31,7 +31,7 @@ public class FramePostrojenje extends JFrame implements IScenariji {
         this.setTitle("Postrojenje");
         setVisible(true);
 
-        initJLabels();
+        initTexts();
         initButtons();
         initCombos();
     }
@@ -44,7 +44,7 @@ public class FramePostrojenje extends JFrame implements IScenariji {
     public void ukljuciDalekovodnoS1() {
         // TODO: treba li provjera je li već uključeno?
 
-        if (FramePostrojenje.dalekovodnoPolje.rastavljacS1.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
+        if (FramePostrojenje.dalekovodnoPolje.rastavljacS1.stanje == EnumStanjePrekidacRastavljac.UKLJUCEN) {
             labelMain.setText("Dalekovodno polje je već uključeno na S1");
         } else {
             FramePostrojenje.dalekovodnoPolje.prekidac.iskljuci();
@@ -77,7 +77,7 @@ public class FramePostrojenje extends JFrame implements IScenariji {
     public void iskljuciDalekovodnoSpojenoNaS1() {
         // TODO: provjera je li već isključeno
         // TODO: da li može biti spojeno i na s1 i na s2? treba li provjera?
-        if (FramePostrojenje.dalekovodnoPolje.rastavljacS1.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
+        if (FramePostrojenje.dalekovodnoPolje.rastavljacS1.stanje == EnumStanjePrekidacRastavljac.UKLJUCEN) {
             FramePostrojenje.dalekovodnoPolje.prekidac.iskljuci();
             FramePostrojenje.dalekovodnoPolje.rastavljacIzlazni.iskljuci(dalekovodnoPolje);
             FramePostrojenje.dalekovodnoPolje.rastavljacS1.iskljuci(dalekovodnoPolje);
@@ -93,7 +93,7 @@ public class FramePostrojenje extends JFrame implements IScenariji {
 
     @Override
     public void iskljuciDalekovodnoSpojenoNaS2() {
-        if (FramePostrojenje.dalekovodnoPolje.rastavljacS2.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
+        if (FramePostrojenje.dalekovodnoPolje.rastavljacS2.stanje == EnumStanjePrekidacRastavljac.UKLJUCEN) {
             FramePostrojenje.dalekovodnoPolje.prekidac.iskljuci();
             FramePostrojenje.dalekovodnoPolje.rastavljacIzlazni.iskljuci(dalekovodnoPolje);
             FramePostrojenje.dalekovodnoPolje.rastavljacS2.iskljuci(dalekovodnoPolje);
@@ -145,7 +145,7 @@ public class FramePostrojenje extends JFrame implements IScenariji {
         }
     }
 
-    private void initCombos(){
+    private void initCombos() {
         String[] naredbe = {"Uključi sistem sabirnica 1", "Uključi sistem sabirnica 2",
                 "Prespoji na S1", "Prespoji na S2",
                 "Isključi sistem sabirnica 1", "Isključi sistem sabirnica 2", "Prikaz"};
@@ -166,7 +166,7 @@ public class FramePostrojenje extends JFrame implements IScenariji {
         signaliCombo.addActionListener(actionEvent -> signaliComboActions(signaliCombo, signaliOdabir));
     }
 
-    private void initJLabels() {
+    private void initTexts() {
         // TODO: prozirno ili n bolje mjesto
         labelMain = new JLabel();
         labelMain.setBounds(50, 540, 500, 20);
@@ -181,6 +181,14 @@ public class FramePostrojenje extends JFrame implements IScenariji {
         labelS1.setText("Sistem I");
         labelS1.setBounds(15, 100, 85, 15);
         add(labelS1);
+
+        signaliArea = new JTextArea();
+        signaliArea.setSize(600, 450);
+        signaliArea.setLocation(400, 500);
+        signaliArea.setText("sdsdsd \n dfdfdf \n dsdsdsdsd \n dsdsdsd \n sdsdsdsd");
+        signaliArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(signaliArea);
+        add(scrollPane);
     }
 
     private void initButtons() {
@@ -212,19 +220,26 @@ public class FramePostrojenje extends JFrame implements IScenariji {
         buttonSignali.addActionListener(actionEvent -> signaliCombo.setVisible(true));
     }
 
-    private String getAllSignali(Polje polje) {
+    private String getSviTrenutniSignali() {
         StringBuilder sb = new StringBuilder();
 
         sb.append("<html><body><p>");
-        sb.append(polje.rastavljacS1.posaljiSignal());
-        sb.append("</br></br>");
-        sb.append(polje.rastavljacS2.posaljiSignal());
-        sb.append("</br></br>");
-        sb.append(polje.rastavljacIzlazni.posaljiSignal());
-        sb.append("</br></br>");
-        sb.append(polje.rastavljacUzemljenja.posaljiSignal());
-        sb.append("</br></br>");
-        sb.append(polje.prekidac.posaljiSignal());
+
+
+
+        /*
+        sb.append(dalekovodnoPolje.rastavljacS1.posaljiSignal());
+        sb.append("</br>");
+        sb.append(dalekovodnoPolje.rastavljacS2.posaljiSignal());
+        sb.append("</br>");
+        sb.append(dalekovodnoPolje.rastavljacIzlazni.posaljiSignal());
+        sb.append("</br>");
+        sb.append(dalekovodnoPolje.rastavljacUzemljenja.posaljiSignal());
+        sb.append("</br>");
+        sb.append(dalekovodnoPolje.prekidac.posaljiSignalePrekidaca());
+        */
+
+
         sb.append("</p></body></html>");
 
         return sb.toString();
@@ -289,31 +304,84 @@ public class FramePostrojenje extends JFrame implements IScenariji {
         }
     }
 
-    private void signaliComboActions(JComboBox<String> signaliCombo, String[] odabir){
+    // TODO: otvori novi prozor i u konstruktor pošalji string signala i naslov prozora
+    private void signaliComboActions(JComboBox<String> signaliCombo, String[] odabir) {
         String selection = Objects.requireNonNull(signaliCombo.getSelectedItem()).toString();
 
-        // String listSignali
+        StringBuilder listSignali = new StringBuilder();
 
-        /*
-        "Svi trenutni signali", "Signali DV", "Signali SP",
-                "Signali prekidača", "Signali rastavljača na S1", "Signali rastavljača na S2",
-                "Signali izlaznog rastavljača", "Signali rastavljača uzemljenja"
-         */
+        // TODO: najpametniji način za napraviti listu signala nekog polja je konkatenacija lista signala uređaja
 
-        if(selection.equals(odabir[0])){
-            // TODO: lista svih signala
-        } else if(selection.equals(odabir[1])){
-            // TODO: signali dv
-        } else if(selection.equals(odabir[2])){
+        if (selection.equals(odabir[0])) {
+            listSignali.append(getSviTrenutniSignali());
+            new FrameSignali(listSignali.toString(), "Svi trenutni signali");
+        } else if (selection.equals(odabir[1])) {
+            // signali dv
+            listSignali.setLength(0);
+            listSignali.append(dalekovodnoPolje.prekidac.posaljiSignalePrekidaca());
+            listSignali.append(dalekovodnoPolje.rastavljacS1.posaljiSignaleRastavljaca());
+            listSignali.append(dalekovodnoPolje.rastavljacS2.posaljiSignaleRastavljaca());
+            listSignali.append(dalekovodnoPolje.rastavljacIzlazni.posaljiSignaleRastavljaca());
+            listSignali.append(dalekovodnoPolje.rastavljacUzemljenja.posaljiSignaleRastavljaca());
+            listSignali.append(dalekovodnoPolje.distantnaZastita.posaljiSignaleDistantne());
+            listSignali.append(dalekovodnoPolje.nadstrujnaZastita.posaljiSignaleNadstrujne());
+            listSignali.append(dalekovodnoPolje.apu.posaljiSignaleAPU());
+
+            // TODO: mjerenja
+
+            new FrameSignali(listSignali.toString(), "Signali dalekovodnog polja");
+
+        } else if (selection.equals(odabir[2])) {
             // signali sp
-        } else if (selection.equals(odabir[3])){
-            // signali prekidača
-        } else if (selection.equals(odabir[4])){
-            // rast s1
-        } else if(selection.equals(odabir[5])){
-            // izlazni
-        } else if(selection.equals(odabir[6])){
-            // uzemljenje
+            listSignali.setLength(0);
+            listSignali.append(spojnoPolje.prekidac.posaljiSignalePrekidaca());
+            listSignali.append(spojnoPolje.rastavljacS1.posaljiSignaleRastavljaca());
+            listSignali.append(spojnoPolje.rastavljacS2.posaljiSignaleRastavljaca());
+            listSignali.append(spojnoPolje.rastavljacIzlazni.posaljiSignaleRastavljaca());
+            listSignali.append(spojnoPolje.rastavljacUzemljenja.posaljiSignaleRastavljaca());
+
+            new FrameSignali(listSignali.toString(), "Signali spojnog polja");
+
+        } else if (selection.equals(odabir[3])) {
+            listSignali.setLength(0);
+
+            listSignali.append(dalekovodnoPolje.prekidac.posaljiSignalePrekidaca());
+            listSignali.append(spojnoPolje.prekidac.posaljiSignalePrekidaca());
+
+            new FrameSignali(listSignali.toString(), "Signali prekidača");
+
+        } else if (selection.equals(odabir[4])) {
+            listSignali.setLength(0);
+
+            listSignali.append(dalekovodnoPolje.rastavljacS1.posaljiSignaleRastavljaca());
+            listSignali.append(spojnoPolje.rastavljacS1.posaljiSignaleRastavljaca());
+
+            new FrameSignali(listSignali.toString(), "Signali rastavljača S1");
+
+        } else if (selection.equals(odabir[5])) {
+            listSignali.setLength(0);
+
+            listSignali.append(dalekovodnoPolje.rastavljacS2.posaljiSignaleRastavljaca());
+            listSignali.append(spojnoPolje.rastavljacS2.posaljiSignaleRastavljaca());
+
+            new FrameSignali(listSignali.toString(), "Signali rastavljača S2");
+
+        } else if (selection.equals(odabir[6])) {
+            listSignali.setLength(0);
+
+            listSignali.append(dalekovodnoPolje.rastavljacIzlazni.posaljiSignaleRastavljaca());
+            listSignali.append(spojnoPolje.rastavljacIzlazni.posaljiSignaleRastavljaca());
+
+            new FrameSignali(listSignali.toString(), "Signali izlaznog rastavljača");
+
+        } else if (selection.equals(odabir[7])) {
+            listSignali.setLength(0);
+
+            listSignali.append(dalekovodnoPolje.rastavljacUzemljenja.posaljiSignaleRastavljaca());
+            listSignali.append(spojnoPolje.rastavljacUzemljenja.posaljiSignaleRastavljaca());
+
+            new FrameSignali(listSignali.toString(), "Signali rastavljača uzemljenja");
+
         }
     }
 

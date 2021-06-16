@@ -65,9 +65,9 @@ public class FrameSpojno extends JFrame {
     private static void addButtonClickListeners() {
         prekidacButton.addActionListener(actionEvent -> {
             // isključivanje prekidača
-            if (FramePostrojenje.spojnoPolje.prekidac.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
+            if (FramePostrojenje.spojnoPolje.prekidac.stanje == EnumStanjePrekidacRastavljac.UKLJUCEN) {
                 FramePostrojenje.spojnoPolje.prekidac.iskljuci();
-            } else if (FramePostrojenje.spojnoPolje.prekidac.stanje == StanjePrekidacRastavljac.ISKLJUCEN) { // uključivanje prekidača - provjere
+            } else if (FramePostrojenje.spojnoPolje.prekidac.stanje == EnumStanjePrekidacRastavljac.ISKLJUCEN) { // uključivanje prekidača - provjere
                 FramePostrojenje.spojnoPolje.prekidac.ukljuci(FramePostrojenje.spojnoPolje);
             }
 
@@ -77,9 +77,9 @@ public class FrameSpojno extends JFrame {
 
         rastavljacS1Button.addActionListener(actionEvent -> {
             // isključen - uključi
-            if (FramePostrojenje.spojnoPolje.rastavljacS1.stanje == StanjePrekidacRastavljac.ISKLJUCEN) {
+            if (FramePostrojenje.spojnoPolje.rastavljacS1.stanje == EnumStanjePrekidacRastavljac.ISKLJUCEN) {
                 FramePostrojenje.spojnoPolje.rastavljacS1.ukljuci(FramePostrojenje.spojnoPolje);
-            } else if (FramePostrojenje.spojnoPolje.rastavljacS1.stanje == StanjePrekidacRastavljac.UKLJUCEN) { // uključen - provjera
+            } else if (FramePostrojenje.spojnoPolje.rastavljacS1.stanje == EnumStanjePrekidacRastavljac.UKLJUCEN) { // uključen - provjera
                 FramePostrojenje.spojnoPolje.rastavljacS1.iskljuci(FramePostrojenje.spojnoPolje);
             }
 
@@ -89,9 +89,9 @@ public class FrameSpojno extends JFrame {
 
         rastavljacS2Button.addActionListener(actionEvent -> {
             // isključen - uključi
-            if (FramePostrojenje.spojnoPolje.rastavljacS2.stanje == StanjePrekidacRastavljac.ISKLJUCEN) {
+            if (FramePostrojenje.spojnoPolje.rastavljacS2.stanje == EnumStanjePrekidacRastavljac.ISKLJUCEN) {
                 FramePostrojenje.spojnoPolje.rastavljacS2.ukljuci(FramePostrojenje.spojnoPolje);
-            } else if (FramePostrojenje.spojnoPolje.rastavljacS2.stanje == StanjePrekidacRastavljac.UKLJUCEN) { // uključen - provjera
+            } else if (FramePostrojenje.spojnoPolje.rastavljacS2.stanje == EnumStanjePrekidacRastavljac.UKLJUCEN) { // uključen - provjera
                 FramePostrojenje.spojnoPolje.rastavljacS2.iskljuci(FramePostrojenje.spojnoPolje);
             }
 
@@ -101,9 +101,9 @@ public class FrameSpojno extends JFrame {
 
         rastavljacIzlazniButton.addActionListener(actionEvent -> {
             // isključen - uključi
-            if (FramePostrojenje.spojnoPolje.rastavljacIzlazni.stanje == StanjePrekidacRastavljac.ISKLJUCEN) {
+            if (FramePostrojenje.spojnoPolje.rastavljacIzlazni.stanje == EnumStanjePrekidacRastavljac.ISKLJUCEN) {
                 FramePostrojenje.spojnoPolje.rastavljacIzlazni.ukljuci(FramePostrojenje.spojnoPolje);
-            } else if (FramePostrojenje.spojnoPolje.rastavljacIzlazni.stanje == StanjePrekidacRastavljac.UKLJUCEN) { // uključen - provjera
+            } else if (FramePostrojenje.spojnoPolje.rastavljacIzlazni.stanje == EnumStanjePrekidacRastavljac.UKLJUCEN) { // uključen - provjera
                 FramePostrojenje.spojnoPolje.rastavljacIzlazni.iskljuci(FramePostrojenje.spojnoPolje);
             }
             initButtonTexts();
@@ -112,31 +112,31 @@ public class FrameSpojno extends JFrame {
     }
 
     static void initButtonTexts() {
-        if (FramePostrojenje.spojnoPolje.rastavljacS1.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
+        if (FramePostrojenje.spojnoPolje.rastavljacS1.stanje == EnumStanjePrekidacRastavljac.UKLJUCEN) {
             rastavljacS1Button.setText("Rastavljač S1: 1");
         } else {
             rastavljacS1Button.setText("Rastavljač S1: 0");
         }
 
-        if (FramePostrojenje.spojnoPolje.rastavljacS2.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
+        if (FramePostrojenje.spojnoPolje.rastavljacS2.stanje == EnumStanjePrekidacRastavljac.UKLJUCEN) {
             rastavljacS2Button.setText("Rastavljač S2: 1");
         } else {
             rastavljacS2Button.setText("Rastavljač S2: 0");
         }
 
-        if (FramePostrojenje.spojnoPolje.rastavljacIzlazni.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
+        if (FramePostrojenje.spojnoPolje.rastavljacIzlazni.stanje == EnumStanjePrekidacRastavljac.UKLJUCEN) {
             rastavljacIzlazniButton.setText("Izlazni rastavljač: 1");
         } else {
             rastavljacIzlazniButton.setText("Izlazni rastavljač: 0");
         }
 
-        if (FramePostrojenje.spojnoPolje.rastavljacUzemljenja.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
+        if (FramePostrojenje.spojnoPolje.rastavljacUzemljenja.stanje == EnumStanjePrekidacRastavljac.UKLJUCEN) {
             rastavljacUzemljenjaButton.setText("Rast. uzemljenja: 1");
         } else {
             rastavljacUzemljenjaButton.setText("Rast. uzemljenja: 0");
         }
 
-        if (FramePostrojenje.spojnoPolje.prekidac.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
+        if (FramePostrojenje.spojnoPolje.prekidac.stanje == EnumStanjePrekidacRastavljac.UKLJUCEN) {
             prekidacButton.setText("Prekidač: 1");
         } else {
             prekidacButton.setText("Prekidač: 0");

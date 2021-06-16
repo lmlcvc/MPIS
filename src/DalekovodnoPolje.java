@@ -20,23 +20,23 @@ public class DalekovodnoPolje extends Polje {
         }
 
         this.rastavljacS1 = new RastavljacSabirnicki("Rastavljač S1", "DV");
-        this.rastavljacS1.stanje = StanjePrekidacRastavljac.ISKLJUCEN;
+        this.rastavljacS1.stanje = EnumStanjePrekidacRastavljac.ISKLJUCEN;
 
         this.rastavljacS2 = new RastavljacSabirnicki("Rastavljač S2", "DV");
-        this.rastavljacS2.stanje = StanjePrekidacRastavljac.UKLJUCEN;
+        this.rastavljacS2.stanje = EnumStanjePrekidacRastavljac.UKLJUCEN;
 
-        this.rastavljacUzemljenja = new RastavljacUzemljenja("R. uzemljenja", "DV");
-        this.rastavljacUzemljenja.stanje = StanjePrekidacRastavljac.ISKLJUCEN;
+        this.rastavljacUzemljenja = new RastavljacUzemljenja("Rastavljač uzemljenja", "DV");
+        this.rastavljacUzemljenja.stanje = EnumStanjePrekidacRastavljac.ISKLJUCEN;
 
-        this.rastavljacIzlazni = new RastavljacIzlazni("Izlazni rastav.", "DV");
-        this.rastavljacIzlazni.stanje = StanjePrekidacRastavljac.UKLJUCEN;
+        this.rastavljacIzlazni = new RastavljacIzlazni("Izlazni rastavljač", "DV");
+        this.rastavljacIzlazni.stanje = EnumStanjePrekidacRastavljac.UKLJUCEN;
 
         this.prekidac = new PrekidacSF6Koncar("Prekidač SF6", "DV");
-        this.prekidac.stanje = StanjePrekidacRastavljac.ISKLJUCEN;
+        this.prekidac.stanje = EnumStanjePrekidacRastavljac.ISKLJUCEN;
 
-        this.distantnaZastita = new ZastitaDistantna();
-        this.nadstrujnaZastita = new ZastitaNadstrujna();
-        this.apu = new Apu();
+        this.distantnaZastita = new ZastitaDistantna("Distantna zaštita", "DV");
+        this.nadstrujnaZastita = new ZastitaNadstrujna("Nadstrujna zaštita", "DV");
+        this.apu = new Apu("APU", "DV");
 
         this.mprs = new MjerniPretvornikRadneSnage();
         this.mpn = new MjerniPretvornikNapona();

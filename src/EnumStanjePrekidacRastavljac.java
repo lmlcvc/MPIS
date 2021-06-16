@@ -1,4 +1,4 @@
-public enum StanjePrekidacRastavljac {
+public enum EnumStanjePrekidacRastavljac {
     MEDUPOLOZAJ,
     UKLJUCEN,
     ISKLJUCEN,
