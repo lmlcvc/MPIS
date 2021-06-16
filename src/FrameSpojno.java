@@ -111,7 +111,7 @@ public class FrameSpojno extends JFrame {
         });
     }
 
-    private static void initButtonTexts() {
+    static void initButtonTexts() {
         if (FramePostrojenje.spojnoPolje.rastavljacS1.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
             rastavljacS1Button.setText("Rastavljač S1: 1");
         } else {

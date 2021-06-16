@@ -5,20 +5,21 @@ import java.util.Objects;
 
 public class FramePostrojenje extends JFrame implements IScenariji {
     public static FramePostrojenje postrojenje;
+    public static FrameDalekovodno frameDalekovodno;
+    public static FrameSpojno frameSpojno;
 
     static DalekovodnoPolje dalekovodnoPolje;
     static SpojnoPolje spojnoPolje;
 
-
     private static JLabel labelMain;
-    private static JLabel labelSignaliDV;
-    private static JLabel labelSignaliSP;
+    private static JTextArea signaliArea;
 
     private JButton buttonDV;
     private JButton buttonSP;
-    private JButton buttonSignaliDV;
-    private JButton buttonSignaliSP;
-    private final JComboBox<String> dalekovodnoCombo;
+    private JButton buttonSignali;
+
+    private JComboBox<String> dalekovodnoCombo;
+    private JComboBox<String> signaliCombo;
 
 
     public FramePostrojenje() {
@@ -32,16 +33,7 @@ public class FramePostrojenje extends JFrame implements IScenariji {
 
         initJLabels();
         initButtons();
-
-        String[] naredbe = {"Uključi sistem sabirnica 1", "Uključi sistem sabirnica 2",
-                "Prespoji na S1", "Prespoji na S2",
-                "Isključi sistem sabirnica 1", "Isključi sistem sabirnica 2", "Prikaz"};
-        dalekovodnoCombo = new JComboBox<>(naredbe);
-        dalekovodnoCombo.setBounds(225, 500, 200, 50);
-        dalekovodnoCombo.setVisible(false);
-        add(dalekovodnoCombo);
-
-        dalekovodnoCombo.addActionListener(actionEvent -> dalekovodnoComboActions(dalekovodnoCombo, naredbe));
+        initCombos();
     }
 
 
@@ -153,19 +145,32 @@ public class FramePostrojenje extends JFrame implements IScenariji {
         }
     }
 
+    private void initCombos(){
+        String[] naredbe = {"Uključi sistem sabirnica 1", "Uključi sistem sabirnica 2",
+                "Prespoji na S1", "Prespoji na S2",
+                "Isključi sistem sabirnica 1", "Isključi sistem sabirnica 2", "Prikaz"};
+        String[] signaliOdabir = {"Svi trenutni signali", "Signali DV", "Signali SP",
+                "Signali prekidača", "Signali rastavljača na S1", "Signali rastavljača na S2",
+                "Signali izlaznog rastavljača", "Signali rastavljača uzemljenja"};
+
+        dalekovodnoCombo = new JComboBox<>(naredbe);
+        dalekovodnoCombo.setBounds(225, 500, 200, 30);
+        dalekovodnoCombo.setVisible(false);
+        add(dalekovodnoCombo);
+        dalekovodnoCombo.addActionListener(actionEvent -> dalekovodnoComboActions(dalekovodnoCombo, naredbe));
+
+        signaliCombo = new JComboBox<>(signaliOdabir);
+        signaliCombo.setSize(200, 30);
+        signaliCombo.setLocation(50, 680);
+        add(signaliCombo);
+        signaliCombo.addActionListener(actionEvent -> signaliComboActions(signaliCombo, signaliOdabir));
+    }
+
     private void initJLabels() {
         // TODO: prozirno ili n bolje mjesto
         labelMain = new JLabel();
-        labelMain.setBounds(500, 625, 500, 20);
+        labelMain.setBounds(50, 540, 500, 20);
         add(labelMain);
-
-        labelSignaliDV = new JLabel();
-        labelSignaliDV.setBounds(50, 575, 385, 150);
-        add(labelSignaliDV);
-
-        labelSignaliSP = new JLabel();
-        labelSignaliSP.setBounds(50, 725, 385, 150);
-        add(labelSignaliSP);
 
         JLabel labelS2 = new JLabel();
         labelS2.setText("Sistem II");
@@ -187,15 +192,11 @@ public class FramePostrojenje extends JFrame implements IScenariji {
         buttonSP.setBounds(525, 400, 200, 100);
         add(buttonSP);
 
-        buttonSignaliDV = new JButton();
-        buttonSignaliDV.setText("Signali DV");
-        buttonSignaliDV.setBounds(50, 550, 150, 50);
-        add(buttonSignaliDV);
-
-        buttonSignaliSP = new JButton();
-        buttonSignaliSP.setText("Signali SP");
-        buttonSignaliSP.setBounds(50, 700, 150, 50);
-        add(buttonSignaliSP);
+        buttonSignali = new JButton();
+        buttonSignali.setText("Signali");
+        buttonSignali.setSize(200, 30);
+        buttonSignali.setLocation(50, 650);
+        add(buttonSignali);
 
         addButtonClickListeners();
     }
@@ -204,11 +205,11 @@ public class FramePostrojenje extends JFrame implements IScenariji {
         buttonDV.addActionListener(actionEvent ->
                 dalekovodnoCombo.setVisible(!dalekovodnoCombo.isVisible()));
 
-        buttonSP.addActionListener(actionEvent -> new FrameSpojno());
+        buttonSP.addActionListener(actionEvent -> {
+            frameSpojno = new FrameSpojno();
+        });
 
-        buttonSignaliDV.addActionListener(actionEvent -> labelSignaliDV.setText(getAllSignali(dalekovodnoPolje)));
-
-        buttonSignaliSP.addActionListener(actionEvent -> labelSignaliSP.setText(getAllSignali(spojnoPolje)));
+        buttonSignali.addActionListener(actionEvent -> signaliCombo.setVisible(true));
     }
 
     private String getAllSignali(Polje polje) {
@@ -255,24 +256,64 @@ public class FramePostrojenje extends JFrame implements IScenariji {
     private void dalekovodnoComboActions(JComboBox<String> dalekovodnoCombo, String[] naredbe) {
         if (Objects.requireNonNull(dalekovodnoCombo.getSelectedItem()).toString().equals(naredbe[0])) {
             ukljuciDalekovodnoS1();
+            SwingUtilities.updateComponentTreeUI(frameDalekovodno);
+            FrameDalekovodno.initButtonTexts();
         }
         if (dalekovodnoCombo.getSelectedItem().toString().equals(naredbe[1])) {
             ukljuciDalekovodnoS2();
+            SwingUtilities.updateComponentTreeUI(frameDalekovodno);
+            FrameDalekovodno.initButtonTexts();
         }
         if (dalekovodnoCombo.getSelectedItem().toString().equals(naredbe[2])) {
             prespojiNaS1();
+            SwingUtilities.updateComponentTreeUI(frameDalekovodno);
+            FrameDalekovodno.initButtonTexts();
         }
         if (dalekovodnoCombo.getSelectedItem().toString().equals(naredbe[3])) {
             prespojiNaS2();
+            SwingUtilities.updateComponentTreeUI(frameDalekovodno);
+            FrameDalekovodno.initButtonTexts();
         }
         if (dalekovodnoCombo.getSelectedItem().toString().equals(naredbe[4])) {
             iskljuciDalekovodnoSpojenoNaS1();
+            SwingUtilities.updateComponentTreeUI(frameDalekovodno);
+            FrameDalekovodno.initButtonTexts();
         }
         if (dalekovodnoCombo.getSelectedItem().toString().equals(naredbe[5])) {
             iskljuciDalekovodnoSpojenoNaS2();
+            SwingUtilities.updateComponentTreeUI(frameDalekovodno);
+            FrameDalekovodno.initButtonTexts();
         }
         if (dalekovodnoCombo.getSelectedItem().toString().equals(naredbe[6])) {
-            new FrameDalekovodno();
+            frameDalekovodno = new FrameDalekovodno();
+        }
+    }
+
+    private void signaliComboActions(JComboBox<String> signaliCombo, String[] odabir){
+        String selection = Objects.requireNonNull(signaliCombo.getSelectedItem()).toString();
+
+        // String listSignali
+
+        /*
+        "Svi trenutni signali", "Signali DV", "Signali SP",
+                "Signali prekidača", "Signali rastavljača na S1", "Signali rastavljača na S2",
+                "Signali izlaznog rastavljača", "Signali rastavljača uzemljenja"
+         */
+
+        if(selection.equals(odabir[0])){
+            // TODO: lista svih signala
+        } else if(selection.equals(odabir[1])){
+            // TODO: signali dv
+        } else if(selection.equals(odabir[2])){
+            // signali sp
+        } else if (selection.equals(odabir[3])){
+            // signali prekidača
+        } else if (selection.equals(odabir[4])){
+            // rast s1
+        } else if(selection.equals(odabir[5])){
+            // izlazni
+        } else if(selection.equals(odabir[6])){
+            // uzemljenje
         }
     }
 
