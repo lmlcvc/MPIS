@@ -1,4 +1,4 @@
-public abstract class MjerniUredaji extends DalekovodnoPolje implements Napajanje {
+public abstract class MjerniUredaji implements Napajanje {
 
     boolean napajanje = true;
 

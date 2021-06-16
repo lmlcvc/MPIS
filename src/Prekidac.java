@@ -11,13 +11,15 @@ public abstract class Prekidac extends Polje implements Napajanje {
     PrekidacKomanda komanda;
     boolean napajanje = true;
 
-    public void ukljuci() {
-        if (this.napajanje) {
-            if(this.stanje == StanjePrekidacRastavljac.UKLJUCEN){
-                System.out.println("Prekidač " + this.identifikator + " je već uključen.");
-            } else {
-                System.out.println("Uključivanje prekidača " + this.identifikator);
+    public void ukljuci(Polje polje) {
+        if (this.napajanje) { // barem 1 od sabirničkih i barem 1 od ova 2
+            if ((polje.rastavljacS1.stanje == StanjePrekidacRastavljac.UKLJUCEN
+                    || polje.rastavljacS2.stanje == StanjePrekidacRastavljac.UKLJUCEN)
+                    && (polje.rastavljacUzemljenja.stanje == StanjePrekidacRastavljac.UKLJUCEN
+                    || polje.rastavljacIzlazni.stanje == StanjePrekidacRastavljac.UKLJUCEN)) {
                 this.stanje = StanjePrekidacRastavljac.UKLJUCEN;
+            } else {
+                System.out.println("Nemoguće uključiti, prekidači nisu uključeni.");
             }
         } else {
             System.out.println("Nemoguće uključiti, napajanje nije spojeno.");
@@ -33,13 +35,13 @@ public abstract class Prekidac extends Polje implements Napajanje {
     }
 
     // TODO: funkcija za dobivanje sgnala iz trenutnog stanja uređaja
-    public String posaljiSignal(){
+    public String posaljiSignal() {
         StringBuilder sb = new StringBuilder();
 
         sb.append("TS A - 220 kV - ");
         sb.append(this.modul);
         sb.append(" - ");
-        sb.append(this.getClass().getSimpleName()); // TODO: ili bolje identifikator? složiti ljepše id-e
+        sb.append(this.identifikator); // TODO: ili bolje identifikator? složiti ljepše id-e
         sb.append(" - stanje - ");
         sb.append(this.stanje);
         sb.append(System.lineSeparator());

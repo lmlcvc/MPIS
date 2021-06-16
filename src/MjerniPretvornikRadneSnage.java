@@ -1,3 +1,7 @@
-public class MjerniPretvornikRadneSnage extends MjerniUredaji{
-    float radnaSnaga;
+public class MjerniPretvornikRadneSnage extends MjerniUredaji {
+    double radnaSnaga;
+
+    public MjerniPretvornikRadneSnage() {
+        this.radnaSnaga = 0.0;
+    }
 }

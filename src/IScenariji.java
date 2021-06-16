@@ -8,7 +8,7 @@ public interface IScenariji {
 
     void iskljuciDalekovodnoSpojenoNaS2();
 
-    void prespojiUkljucenoDalekovodnoNaS1();
+    void prespojiNaS1();
 
-    void prespojiUkljucenoDalekovodnoNaS2();
+    void prespojiNaS2();
 }

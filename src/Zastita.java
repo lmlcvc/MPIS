@@ -8,6 +8,10 @@ public abstract class Zastita implements Napajanje {
     boolean napajanje = true;
     boolean ukljucena = false;
 
+    public Zastita() {
+        this.ukljucena = true;
+    }
+
     public abstract void sekOpremaUp();
 
     public void ukljuci() {
