@@ -159,11 +159,11 @@ public class FramePostrojenje extends JFrame implements IScenariji {
         add(labelMain);
 
         labelSignaliDV = new JLabel();
-        labelSignaliDV.setBounds(50, 575, 500, 150);
+        labelSignaliDV.setBounds(50, 575, 385, 150);
         add(labelSignaliDV);
 
         labelSignaliSP = new JLabel();
-        labelSignaliSP.setBounds(50, 725, 500, 150);
+        labelSignaliSP.setBounds(50, 725, 385, 150);
         add(labelSignaliSP);
 
         JLabel labelS2 = new JLabel();

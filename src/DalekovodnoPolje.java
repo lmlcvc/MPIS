@@ -19,19 +19,19 @@ public class DalekovodnoPolje extends Polje {
             this.ukljuceno = true;
         }
 
-        this.rastavljacS1 = new RastavljacSabirnicki("S1 DP", "DV");
+        this.rastavljacS1 = new RastavljacSabirnicki("Rastavljač S1", "DV");
         this.rastavljacS1.stanje = StanjePrekidacRastavljac.ISKLJUCEN;
 
-        this.rastavljacS2 = new RastavljacSabirnicki("S2 DP", "DV");
+        this.rastavljacS2 = new RastavljacSabirnicki("Rastavljač S2", "DV");
         this.rastavljacS2.stanje = StanjePrekidacRastavljac.UKLJUCEN;
 
-        this.rastavljacUzemljenja = new RastavljacUzemljenja("Rastavljač uzemljenja DP", "DV");
+        this.rastavljacUzemljenja = new RastavljacUzemljenja("R. uzemljenja", "DV");
         this.rastavljacUzemljenja.stanje = StanjePrekidacRastavljac.ISKLJUCEN;
 
-        this.rastavljacIzlazni = new RastavljacIzlazni("izlazni rastavljač DP", "DV");
+        this.rastavljacIzlazni = new RastavljacIzlazni("Izlazni rastav.", "DV");
         this.rastavljacIzlazni.stanje = StanjePrekidacRastavljac.UKLJUCEN;
 
-        this.prekidac = new PrekidacSF6Koncar("Prekidač SF6 DP", "DP");
+        this.prekidac = new PrekidacSF6Koncar("Prekidač SF6", "DP");
         this.prekidac.stanje = StanjePrekidacRastavljac.ISKLJUCEN;
 
         this.distantnaZastita = new ZastitaDistantna();
