@@ -13,6 +13,7 @@ public class FrameDalekovodno extends JFrame {
     public FrameDalekovodno() {
         setLayout(null);
         setSize(700, 1000);
+        this.setTitle("Dalekovodno polje");
         setVisible(true);
 
         JPanel panel = new JPanel();
@@ -73,27 +74,22 @@ public class FrameDalekovodno extends JFrame {
 
     public void initButtons() {
         rastavljacS1Button = new JButton();
-        rastavljacS1Button.setText("Rastavljač S1: ");
         rastavljacS1Button.setBounds(125, 200, 150, 50);
         add(rastavljacS1Button);
 
         rastavljacS2Button = new JButton();
-        rastavljacS2Button.setText("Rastavljač S2: ");
         rastavljacS2Button.setBounds(425, 200, 150, 50);
         add(rastavljacS2Button);
 
         prekidacButton = new JButton();
-        prekidacButton.setText("Prekidač: ");
         prekidacButton.setBounds(250, 300, 200, 50);
         add(prekidacButton);
 
         rastavljacIzlazniButton = new JButton();
-        rastavljacIzlazniButton.setText("Izlazni rast.: ");
         rastavljacIzlazniButton.setBounds(250, 375, 200, 50);
         add(rastavljacIzlazniButton);
 
         rastavljacUzemljenjaButton = new JButton();
-        rastavljacUzemljenjaButton.setText("Rast. uzemljenja: ");
         rastavljacUzemljenjaButton.setBounds(50, 433, 200, 50);
         add(rastavljacUzemljenjaButton);
 
@@ -108,7 +104,7 @@ public class FrameDalekovodno extends JFrame {
         add(zastitaNadstrujnaButton);
 
         JButton apuButton = new JButton();
-        apuButton.setText("Nadstrujna zaštita");
+        apuButton.setText("APU");
         apuButton.setBounds(50, 750, 175, 50);
         add(apuButton);
     }

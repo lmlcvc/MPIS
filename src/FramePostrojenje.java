@@ -27,6 +27,7 @@ public class FramePostrojenje extends JFrame implements IScenariji {
 
         setLayout(null);
         setSize(1000, 1000);
+        this.setTitle("Postrojenje");
         setVisible(true);
 
         initJLabels();
@@ -155,7 +156,7 @@ public class FramePostrojenje extends JFrame implements IScenariji {
     private void initJLabels() {
         // TODO: prozirno ili n bolje mjesto
         labelMain = new JLabel();
-        labelMain.setBounds(100, 30, 400, 20);
+        labelMain.setBounds(500, 625, 500, 20);
         add(labelMain);
 
         labelSignaliDV = new JLabel();

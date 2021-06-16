@@ -4,7 +4,7 @@ public class RastavljacIzlazni extends Rastavljac{
         this.identifikator = id;
         this.modul = modul;
         this.stanje = StanjePrekidacRastavljac.UKLJUCEN;
-        this.komanda = RastavljacKomanda.JEDAN; // TODO: lmao nez
+        this.komanda = RastavljacKomanda.JEDAN;
     }
 
     @Override
@@ -21,11 +21,14 @@ public class RastavljacIzlazni extends Rastavljac{
     @Override
     public void iskljuci(Polje polje) {
         if (this.napajanje) {
-            this.stanje = StanjePrekidacRastavljac.ISKLJUCEN;
-            polje.rastavljacUzemljenja.stanje = StanjePrekidacRastavljac.UKLJUCEN;
+            if (polje.prekidac.stanje == StanjePrekidacRastavljac.ISKLJUCEN) {
+                this.stanje = StanjePrekidacRastavljac.ISKLJUCEN;
+                polje.rastavljacUzemljenja.stanje = StanjePrekidacRastavljac.UKLJUCEN;
+            } else {
+                System.out.println("Nemoguće isključiti, prekidač nije isključen");
+            }
         } else {
-            System.out.println("Nemoguće isljučiti, napajanje nije spojeno.");
+            System.out.println("Nemoguće isključiti, napajanje nije spojeno.");
         }
-
     }
 }

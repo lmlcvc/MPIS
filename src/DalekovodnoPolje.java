@@ -31,7 +31,7 @@ public class DalekovodnoPolje extends Polje {
         this.rastavljacIzlazni = new RastavljacIzlazni("Izlazni rastav.", "DV");
         this.rastavljacIzlazni.stanje = StanjePrekidacRastavljac.UKLJUCEN;
 
-        this.prekidac = new PrekidacSF6Koncar("Prekidač SF6", "DP");
+        this.prekidac = new PrekidacSF6Koncar("Prekidač SF6", "DV");
         this.prekidac.stanje = StanjePrekidacRastavljac.ISKLJUCEN;
 
         this.distantnaZastita = new ZastitaDistantna();

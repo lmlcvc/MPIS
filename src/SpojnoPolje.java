@@ -28,9 +28,7 @@ public class SpojnoPolje extends Polje {
         this.ukljuceno = true;
     }
 
-    public void iskljuci() { // TODO: je li ovo dosta --- nije bilo dosta
-        // this.ukljuceno = false;
-
+    public void iskljuci() {
         this.rastavljacS1.stanje = StanjePrekidacRastavljac.ISKLJUCEN;
         this.rastavljacS2.stanje = StanjePrekidacRastavljac.ISKLJUCEN;
         this.rastavljacIzlazni.stanje = StanjePrekidacRastavljac.ISKLJUCEN;

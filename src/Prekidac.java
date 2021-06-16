@@ -13,10 +13,8 @@ public abstract class Prekidac extends Polje implements Napajanje {
 
     public void ukljuci(Polje polje) {
         if (this.napajanje) { // barem 1 od sabirničkih i barem 1 od ova 2
-            if ((polje.rastavljacS1.stanje == StanjePrekidacRastavljac.UKLJUCEN
-                    || polje.rastavljacS2.stanje == StanjePrekidacRastavljac.UKLJUCEN)
-                    && (polje.rastavljacUzemljenja.stanje == StanjePrekidacRastavljac.UKLJUCEN
-                    || polje.rastavljacIzlazni.stanje == StanjePrekidacRastavljac.UKLJUCEN)) {
+            if (polje.rastavljacS1.stanje == StanjePrekidacRastavljac.UKLJUCEN
+                    || polje.rastavljacS2.stanje == StanjePrekidacRastavljac.UKLJUCEN) {
                 this.stanje = StanjePrekidacRastavljac.UKLJUCEN;
             } else {
                 System.out.println("Nemoguće uključiti, prekidači nisu uključeni.");
@@ -41,7 +39,7 @@ public abstract class Prekidac extends Polje implements Napajanje {
         sb.append("TS A - 220 kV - ");
         sb.append(this.modul);
         sb.append(" - ");
-        sb.append(this.identifikator); // TODO: ili bolje identifikator? složiti ljepše id-e
+        sb.append(this.identifikator);
         sb.append(" - stanje - ");
         sb.append(this.stanje);
         sb.append(System.lineSeparator());

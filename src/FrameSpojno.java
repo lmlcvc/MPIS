@@ -13,6 +13,7 @@ public class FrameSpojno extends JFrame {
     public FrameSpojno() {
         setLayout(null);
         setSize(700, 1000);
+        this.setTitle("Spojno polje");
         setVisible(true);
 
         JPanel panel = new JPanel();
@@ -41,29 +42,22 @@ public class FrameSpojno extends JFrame {
 
     public void initButtons() {
         rastavljacS1Button = new JButton();
-        rastavljacS1Button.setText("Rastavljač S1: ");
         rastavljacS1Button.setBounds(125, 200, 150, 50);
         add(rastavljacS1Button);
 
         rastavljacS2Button = new JButton();
-        rastavljacS2Button.setText("Rastavljač S2: ");
         rastavljacS2Button.setBounds(425, 200, 150, 50);
         add(rastavljacS2Button);
 
         rastavljacIzlazniButton = new JButton();
-        rastavljacIzlazniButton.setText("Rastavljač izlazni: ");
         rastavljacIzlazniButton.setBounds(250, 375, 200, 50);
-        //rastavljacIzlazniButton.setBounds();
         add(rastavljacIzlazniButton);
 
         rastavljacUzemljenjaButton = new JButton();
-        rastavljacUzemljenjaButton.setText("Rastavljač uzemljenja: ");
         rastavljacUzemljenjaButton.setBounds(50, 433, 200, 50);
-        // rastavljacUzemljenjaButton.setBounds();
         add(rastavljacUzemljenjaButton);
 
         prekidacButton = new JButton();
-        prekidacButton.setText("Prekidač: ");
         prekidacButton.setBounds(250, 300, 200, 50);
         add(prekidacButton);
     }
@@ -78,7 +72,7 @@ public class FrameSpojno extends JFrame {
             }
 
             initButtonTexts();
-            SwingUtilities.updateComponentTreeUI(FramePostrojenje.postrojenje); // TODO: ovo valja?
+            SwingUtilities.updateComponentTreeUI(FramePostrojenje.postrojenje);
         });
 
         rastavljacS1Button.addActionListener(actionEvent -> {
@@ -113,6 +107,7 @@ public class FrameSpojno extends JFrame {
                 FramePostrojenje.spojnoPolje.rastavljacIzlazni.iskljuci(FramePostrojenje.spojnoPolje);
             }
             initButtonTexts();
+            SwingUtilities.updateComponentTreeUI(FramePostrojenje.postrojenje);
         });
     }
 
