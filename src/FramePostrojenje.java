@@ -61,8 +61,8 @@ public class FramePostrojenje extends JFrame implements IScenariji {
     @Override
     public void ukljuciDalekovodnoS2() {
 
-        if (FramePostrojenje.dalekovodnoPolje.ukljuceno) {
-            labelMain.setText("Dalekovodno polje je već uključeno");
+        if (FramePostrojenje.dalekovodnoPolje.rastavljacS2.stanje == EnumStanjePrekidacRastavljac.UKLJUCEN) {
+            labelMain.setText("Dalekovodno polje je već uključeno na S2");
         } else {
             FramePostrojenje.dalekovodnoPolje.rastavljacUzemljenja.ukljuci(dalekovodnoPolje);
             FramePostrojenje.dalekovodnoPolje.rastavljacS2.ukljuci(dalekovodnoPolje);
