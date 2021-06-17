@@ -12,7 +12,6 @@ public class FramePostrojenje extends JFrame implements IScenariji {
     static SpojnoPolje spojnoPolje;
 
     private static JLabel labelMain;
-    private static JTextArea signaliArea;
 
     private JButton buttonDV;
     private JButton buttonSP;
@@ -37,14 +36,9 @@ public class FramePostrojenje extends JFrame implements IScenariji {
     }
 
 
-    // metode za rukovanje scenarijima
-    // TODO: pametnije napraviti provjere?
-
     @Override
     public void ukljuciDalekovodnoS1() {
-        // TODO: treba li provjera je li već uključeno?
-
-        if (FramePostrojenje.dalekovodnoPolje.rastavljacS1.stanje == EnumStanjePrekidacRastavljac.UKLJUCEN) {
+   if (FramePostrojenje.dalekovodnoPolje.rastavljacS1.stanje == EnumStanjePrekidacRastavljac.UKLJUCEN) {
             labelMain.setText("Dalekovodno polje je već uključeno na S1");
         } else {
             FramePostrojenje.dalekovodnoPolje.prekidac.iskljuci();
@@ -75,8 +69,6 @@ public class FramePostrojenje extends JFrame implements IScenariji {
 
     @Override
     public void iskljuciDalekovodnoSpojenoNaS1() {
-        // TODO: provjera je li već isključeno
-        // TODO: da li može biti spojeno i na s1 i na s2? treba li provjera?
         if (FramePostrojenje.dalekovodnoPolje.rastavljacS1.stanje == EnumStanjePrekidacRastavljac.UKLJUCEN) {
             FramePostrojenje.dalekovodnoPolje.prekidac.iskljuci();
             FramePostrojenje.dalekovodnoPolje.rastavljacIzlazni.iskljuci(dalekovodnoPolje);
@@ -113,6 +105,7 @@ public class FramePostrojenje extends JFrame implements IScenariji {
     public void prespojiNaS1() {
         if (FramePostrojenje.dalekovodnoPolje.ukljuceno) {
             spojnoPolje.ukljuci(spojnoPolje);
+            dalekovodnoPolje.prekidac.iskljuci();
             dalekovodnoPolje.rastavljacS1.ukljuci(dalekovodnoPolje);
             dalekovodnoPolje.rastavljacS2.iskljuci(dalekovodnoPolje);
             dalekovodnoPolje.prekidac.ukljuci(dalekovodnoPolje);
@@ -124,16 +117,15 @@ public class FramePostrojenje extends JFrame implements IScenariji {
             labelMain.setText("Nemoguće prespojiti, dalekovodno polje je isključeno");
             System.out.println("PRESPAJANJE: Nemoguće prespojiti, dalekovodno polje je isključeno");
         }
-
-        // TODO: što točno treba u provjeri?
     }
 
     @Override
     public void prespojiNaS2() {
         if (FramePostrojenje.dalekovodnoPolje.ukljuceno) {
-            FramePostrojenje.spojnoPolje.ukljuci(spojnoPolje);
-            FramePostrojenje.dalekovodnoPolje.rastavljacS2.ukljuci(dalekovodnoPolje);
-            FramePostrojenje.dalekovodnoPolje.rastavljacS1.iskljuci(dalekovodnoPolje);
+            spojnoPolje.ukljuci(spojnoPolje);
+            dalekovodnoPolje.prekidac.iskljuci();
+            dalekovodnoPolje.rastavljacS2.ukljuci(dalekovodnoPolje);
+            dalekovodnoPolje.rastavljacS1.iskljuci(dalekovodnoPolje);
             dalekovodnoPolje.prekidac.ukljuci(dalekovodnoPolje);
             spojnoPolje.iskljuci();
 
@@ -160,16 +152,15 @@ public class FramePostrojenje extends JFrame implements IScenariji {
         dalekovodnoCombo.addActionListener(actionEvent -> dalekovodnoComboActions(dalekovodnoCombo, naredbe));
 
         signaliCombo = new JComboBox<>(signaliOdabir);
-        signaliCombo.setSize(200, 30);
-        signaliCombo.setLocation(50, 680);
+        signaliCombo.setSize(250, 30);
+        signaliCombo.setLocation(50, 630);
         add(signaliCombo);
         signaliCombo.addActionListener(actionEvent -> signaliComboActions(signaliCombo, signaliOdabir));
     }
 
     private void initTexts() {
-        // TODO: prozirno ili n bolje mjesto
         labelMain = new JLabel();
-        labelMain.setBounds(50, 540, 500, 20);
+        labelMain.setBounds(50, 550, 500, 20);
         add(labelMain);
 
         JLabel labelS2 = new JLabel();
@@ -181,14 +172,6 @@ public class FramePostrojenje extends JFrame implements IScenariji {
         labelS1.setText("Sistem I");
         labelS1.setBounds(15, 100, 85, 15);
         add(labelS1);
-
-        signaliArea = new JTextArea();
-        signaliArea.setSize(600, 450);
-        signaliArea.setLocation(400, 500);
-        signaliArea.setText("sdsdsd \n dfdfdf \n dsdsdsdsd \n dsdsdsd \n sdsdsdsd");
-        signaliArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(signaliArea);
-        add(scrollPane);
     }
 
     private void initButtons() {
@@ -201,9 +184,9 @@ public class FramePostrojenje extends JFrame implements IScenariji {
         add(buttonSP);
 
         buttonSignali = new JButton();
-        buttonSignali.setText("Signali");
-        buttonSignali.setSize(200, 30);
-        buttonSignali.setLocation(50, 650);
+        buttonSignali.setText("Prikaz signala");
+        buttonSignali.setSize(250, 30);
+        buttonSignali.setLocation(50, 600);
         add(buttonSignali);
 
         addButtonClickListeners();
@@ -213,37 +196,11 @@ public class FramePostrojenje extends JFrame implements IScenariji {
         buttonDV.addActionListener(actionEvent ->
                 dalekovodnoCombo.setVisible(!dalekovodnoCombo.isVisible()));
 
-        buttonSP.addActionListener(actionEvent -> {
-            frameSpojno = new FrameSpojno();
-        });
+        buttonSP.addActionListener(actionEvent -> frameSpojno = new FrameSpojno());
 
         buttonSignali.addActionListener(actionEvent -> signaliCombo.setVisible(true));
     }
 
-    private String getSviTrenutniSignali() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("<html><body><p>");
-
-
-
-        /*
-        sb.append(dalekovodnoPolje.rastavljacS1.posaljiSignal());
-        sb.append("</br>");
-        sb.append(dalekovodnoPolje.rastavljacS2.posaljiSignal());
-        sb.append("</br>");
-        sb.append(dalekovodnoPolje.rastavljacIzlazni.posaljiSignal());
-        sb.append("</br>");
-        sb.append(dalekovodnoPolje.rastavljacUzemljenja.posaljiSignal());
-        sb.append("</br>");
-        sb.append(dalekovodnoPolje.prekidac.posaljiSignalePrekidaca());
-        */
-
-
-        sb.append("</p></body></html>");
-
-        return sb.toString();
-    }
 
     public void paint(Graphics g) {
         super.paint(g);
@@ -271,52 +228,83 @@ public class FramePostrojenje extends JFrame implements IScenariji {
     private void dalekovodnoComboActions(JComboBox<String> dalekovodnoCombo, String[] naredbe) {
         if (Objects.requireNonNull(dalekovodnoCombo.getSelectedItem()).toString().equals(naredbe[0])) {
             ukljuciDalekovodnoS1();
-            SwingUtilities.updateComponentTreeUI(frameDalekovodno);
-            FrameDalekovodno.initButtonTexts();
+            if(frameDalekovodno != null){
+                SwingUtilities.updateComponentTreeUI(frameDalekovodno);
+                FrameDalekovodno.initButtonTexts();
+            }
         }
         if (dalekovodnoCombo.getSelectedItem().toString().equals(naredbe[1])) {
             ukljuciDalekovodnoS2();
-            SwingUtilities.updateComponentTreeUI(frameDalekovodno);
-            FrameDalekovodno.initButtonTexts();
+            if(frameDalekovodno != null){
+                SwingUtilities.updateComponentTreeUI(frameDalekovodno);
+                FrameDalekovodno.initButtonTexts();
+            }
         }
         if (dalekovodnoCombo.getSelectedItem().toString().equals(naredbe[2])) {
             prespojiNaS1();
-            SwingUtilities.updateComponentTreeUI(frameDalekovodno);
-            FrameDalekovodno.initButtonTexts();
+            if(frameDalekovodno != null){
+                SwingUtilities.updateComponentTreeUI(frameDalekovodno);
+                FrameDalekovodno.initButtonTexts();
+            }
         }
         if (dalekovodnoCombo.getSelectedItem().toString().equals(naredbe[3])) {
             prespojiNaS2();
-            SwingUtilities.updateComponentTreeUI(frameDalekovodno);
-            FrameDalekovodno.initButtonTexts();
+            if(frameDalekovodno != null){
+                SwingUtilities.updateComponentTreeUI(frameDalekovodno);
+                FrameDalekovodno.initButtonTexts();
+            }
         }
         if (dalekovodnoCombo.getSelectedItem().toString().equals(naredbe[4])) {
             iskljuciDalekovodnoSpojenoNaS1();
-            SwingUtilities.updateComponentTreeUI(frameDalekovodno);
-            FrameDalekovodno.initButtonTexts();
+            if(frameDalekovodno != null){
+                SwingUtilities.updateComponentTreeUI(frameDalekovodno);
+                FrameDalekovodno.initButtonTexts();
+            }
         }
         if (dalekovodnoCombo.getSelectedItem().toString().equals(naredbe[5])) {
             iskljuciDalekovodnoSpojenoNaS2();
-            SwingUtilities.updateComponentTreeUI(frameDalekovodno);
-            FrameDalekovodno.initButtonTexts();
+            if(frameDalekovodno != null){
+                SwingUtilities.updateComponentTreeUI(frameDalekovodno);
+                FrameDalekovodno.initButtonTexts();
+            }
         }
         if (dalekovodnoCombo.getSelectedItem().toString().equals(naredbe[6])) {
             frameDalekovodno = new FrameDalekovodno();
         }
     }
 
-    // TODO: otvori novi prozor i u konstruktor pošalji string signala i naslov prozora
+    private String getSviTrenutniSignali() {
+        return dalekovodnoPolje.prekidac.posaljiTrenutneSignalePrekidaca() +
+                dalekovodnoPolje.rastavljacS1.posaljiTrenutneSignaleRastavljaca() +
+                dalekovodnoPolje.rastavljacS2.posaljiTrenutneSignaleRastavljaca() +
+                dalekovodnoPolje.rastavljacIzlazni.posaljiTrenutneSignaleRastavljaca() +
+                dalekovodnoPolje.rastavljacUzemljenja.posaljiTrenutneSignaleRastavljaca() +
+                dalekovodnoPolje.distantnaZastita.posaljiTrenutneSignaleDistantne() +
+                dalekovodnoPolje.nadstrujnaZastita.posaljiTrenutneSignaleNadstrujne() +
+                dalekovodnoPolje.apu.posaljiTrenutneSignaleAPU() +
+                dalekovodnoPolje.mprs.posaljiTrenutniSignalMPRS() +
+                dalekovodnoPolje.mpn.posaljiTrenutniSignalMPN() +
+                dalekovodnoPolje.brojilo.posaljiTrenutneSignaleBrojila() +
+                System.lineSeparator() +
+                spojnoPolje.prekidac.posaljiTrenutneSignalePrekidaca() +
+                spojnoPolje.rastavljacS1.posaljiTrenutneSignaleRastavljaca() +
+                spojnoPolje.rastavljacS2.posaljiTrenutneSignaleRastavljaca() +
+                spojnoPolje.rastavljacIzlazni.posaljiTrenutneSignaleRastavljaca() +
+                spojnoPolje.rastavljacUzemljenja.posaljiTrenutneSignaleRastavljaca();
+    }
+
     private void signaliComboActions(JComboBox<String> signaliCombo, String[] odabir) {
         String selection = Objects.requireNonNull(signaliCombo.getSelectedItem()).toString();
 
         StringBuilder listSignali = new StringBuilder();
 
-        // TODO: najpametniji način za napraviti listu signala nekog polja je konkatenacija lista signala uređaja
-
         if (selection.equals(odabir[0])) {
+            listSignali.setLength(0);
             listSignali.append(getSviTrenutniSignali());
             new FrameSignali(listSignali.toString(), "Svi trenutni signali");
+
         } else if (selection.equals(odabir[1])) {
-            // signali dv
+
             listSignali.setLength(0);
             listSignali.append(dalekovodnoPolje.prekidac.posaljiSignalePrekidaca());
             listSignali.append(dalekovodnoPolje.rastavljacS1.posaljiSignaleRastavljaca());
@@ -327,7 +315,9 @@ public class FramePostrojenje extends JFrame implements IScenariji {
             listSignali.append(dalekovodnoPolje.nadstrujnaZastita.posaljiSignaleNadstrujne());
             listSignali.append(dalekovodnoPolje.apu.posaljiSignaleAPU());
 
-            // TODO: mjerenja
+            listSignali.append(dalekovodnoPolje.mprs.posaljiSignaleMPRS());
+            listSignali.append(dalekovodnoPolje.mpn.posaljiSignaleMPN());
+            listSignali.append(dalekovodnoPolje.brojilo.posaljiSignaleBrojila());
 
             new FrameSignali(listSignali.toString(), "Signali dalekovodnog polja");
 

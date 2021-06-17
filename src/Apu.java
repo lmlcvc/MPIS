@@ -16,14 +16,10 @@ public class Apu implements Napajanje {
     }
 
     public String posaljiSignaleAPU() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(posaljiSignalUkljucenje());
-        sb.append(posaljiSignalBlokada());
-        sb.append(posaljiSignal1P());
-        sb.append(posaljiSignal3P());
-
-        return sb.toString();
+        return posaljiSignalUkljucenje() +
+                posaljiSignalBlokada() +
+                posaljiSignal1P() +
+                posaljiSignal3P();
     }
 
     private String posaljiSignalUkljucenje(){
@@ -94,11 +90,52 @@ public class Apu implements Napajanje {
         return sb.toString();
     }
 
-    // TODO: u kodu vidjeti je li bolje da ovo bude interface
-    // kaj je ovo,,
-    public void sekOpremaUp() {
+    public String posaljiTrenutneSignaleAPU() {
+        return posaljiTrenutniSignalUkljucenje() +
+                posaljiTrenutniSignalBlokada() +
+                posaljiTrenutniSignal1P() +
+                posaljiTrenutniSignal3P();
     }
 
+    private String posaljiTrenutniSignalUkljucenje(){
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - APU uključenje - " +
+                apuUkljucenje +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalBlokada(){
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - APU blokada - " +
+                apuBlokada +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignal1P(){
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - APU 1P - " +
+                apu1P +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignal3P(){
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - APU 3P - " +
+                apu3P +
+                System.lineSeparator();
+    }
 
     @Override
     public boolean provjeriNapajanje() {

@@ -4,7 +4,7 @@ public class ZastitaNadstrujna extends Zastita {
     EnumProradaPrestanak vpcIskljucenje = EnumProradaPrestanak.PRESTANAK;
     EnumProradaPrestanak zemljospojnaIskljucenje = EnumProradaPrestanak.PRORADA;
     EnumProradaPrestanak odPreopterecenjaUpozorenje = EnumProradaPrestanak.PRESTANAK;
-    EnumProradaPrestanak getOdPreopterecenjaIskljucenje = EnumProradaPrestanak.PRESTANAK;
+    EnumProradaPrestanak odPreopterecenjaIskljucenje = EnumProradaPrestanak.PRESTANAK;
     EnumProradaPrestanak relejKvar = EnumProradaPrestanak.PRESTANAK;
 
     public ZastitaNadstrujna(String id, String modul) {
@@ -12,16 +12,12 @@ public class ZastitaNadstrujna extends Zastita {
     }
 
     public String posaljiSignaleNadstrujne() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(posaljiSignalNPC());
-        sb.append(posaljiSignalVPC());
-        sb.append(posaljiSignalZemljospojnaIskljucenje());
-        sb.append(posaljiSignalOdPreopterecenjaUpozorenje());
-        sb.append(posaljiSignalOdPreopterecenjaIskljucenje());
-        sb.append(posaljiSignalRelejKvar());
-
-        return sb.toString();
+        return posaljiSignalNPC() +
+                posaljiSignalVPC() +
+                posaljiSignalZemljospojnaIskljucenje() +
+                posaljiSignalOdPreopterecenjaUpozorenje() +
+                posaljiSignalOdPreopterecenjaIskljucenje() +
+                posaljiSignalRelejKvar();
     }
 
     private String posaljiSignalNPC() {
@@ -50,7 +46,7 @@ public class ZastitaNadstrujna extends Zastita {
             sb.append(this.modul);
             sb.append(" - ");
             sb.append(this.identifikator);
-            sb.append(" - NPČ-isključenje - ");
+            sb.append(" - VPČ-isključenje - ");
             sb.append(stanje);
             sb.append(System.lineSeparator());
         }
@@ -124,6 +120,75 @@ public class ZastitaNadstrujna extends Zastita {
         }
 
         return sb.toString();
+    }
+
+    public String posaljiTrenutneSignaleNadstrujne() {
+        return posaljiTrenutniSignalNPC() +
+                posaljiTrenutniSignalVPC() +
+                posaljiTrenutniSignalZemljospojnaIskljucenje() +
+                posaljiTrenutniSignalOdPreopterecenjaUpozorenje() +
+                posaljiTrenutniSignalOdPreopterecenjaIskljucenje() +
+                posaljiTrenutniSignalRelejKvar();
+    }
+
+    private String posaljiTrenutniSignalNPC() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - NPČ-isključenje - " +
+                npcIskljucenje +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalVPC() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - VPČ-isključenje - " +
+                vpcIskljucenje +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalZemljospojnaIskljucenje() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - zemljospojna isključenje - " +
+                zemljospojnaIskljucenje +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalOdPreopterecenjaUpozorenje() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - od preopterećenja upozorenje - " +
+                odPreopterecenjaUpozorenje +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalOdPreopterecenjaIskljucenje() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - od preopterećenja isključenje - " +
+                odPreopterecenjaIskljucenje +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalRelejKvar() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - relej-kvar - " +
+                relejKvar +
+                System.lineSeparator();
     }
 
     public void postaviStanje() {

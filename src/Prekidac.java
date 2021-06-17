@@ -1,18 +1,14 @@
-import java.util.ArrayList;
-
 public abstract class Prekidac extends Polje implements Napajanje {
 
     String identifikator;
     String modul;
-
-    ArrayList<Enum> varijable = new ArrayList<Enum>();
 
     EnumKomanda komanda = EnumKomanda.UKLOP;
     EnumStanjePrekidacRastavljac stanje;
     EnumProradaPrestanak gubitakSF6Upozorenje = EnumProradaPrestanak.PRESTANAK;
     EnumProradaPrestanak gubitakN2 = EnumProradaPrestanak.PRESTANAK;
     EnumProradaPrestanak minTlakUlja = EnumProradaPrestanak.PRESTANAK;
-    EnumProradaPrestanak getGubitakSF6Blokada = EnumProradaPrestanak.PRESTANAK;
+    EnumProradaPrestanak gubitakSF6Blokada = EnumProradaPrestanak.PRESTANAK;
     EnumProradaPrestanak gubitakUlja = EnumProradaPrestanak.PRESTANAK;
     EnumProradaPrestanak uljeSF6N2 = EnumProradaPrestanak.PRESTANAK;
     EnumProradaPrestanak apuBlokada = EnumProradaPrestanak.PRESTANAK;
@@ -42,26 +38,23 @@ public abstract class Prekidac extends Polje implements Napajanje {
     }
 
     public String posaljiSignalePrekidaca() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(posaljiSignalKomanda());
-        sb.append(posaljiSignalStanje());
-        sb.append(posaljiSignalGubitakSF6Upozorenje());
-        sb.append(posaljiSignalGubitakN2());
-        sb.append(posaljiSignalMinTlakUlja());
-        sb.append(posaljiSignalGubitakSF6Blokada());
-        sb.append(posaljiSignalSF6N2Ulje());
-        sb.append(posaljiSignalAPUBlokada());
-        sb.append(posaljiSignalKvarGrijanja());
-
-        return sb.toString();
+        return posaljiSignalKomanda() +
+                posaljiSignalStanje() +
+                posaljiSignalGubitakSF6Upozorenje() +
+                posaljiSignalGubitakN2() +
+                posaljiSignalMinTlakUlja() +
+                posaljiSignalGubitakSF6Blokada() +
+                posaljiSignalGubitakUlja() +
+                posaljiSignalSF6N2Ulje() +
+                posaljiSignalAPUBlokada() +
+                posaljiSignalKvarGrijanja();
     }
 
     private String posaljiSignalKomanda() {
         StringBuilder sb = new StringBuilder();
 
         EnumKomanda[] komande = EnumKomanda.values();
-        for(EnumKomanda komanda : komande){
+        for (EnumKomanda komanda : komande) {
             sb.append("TS A - 220 kV - ");
             sb.append(this.modul);
             sb.append(" - ");
@@ -74,11 +67,11 @@ public abstract class Prekidac extends Polje implements Napajanje {
         return sb.toString();
     }
 
-    private String posaljiSignalStanje(){
+    private String posaljiSignalStanje() {
         StringBuilder sb = new StringBuilder();
 
         EnumStanjePrekidacRastavljac[] stanja = EnumStanjePrekidacRastavljac.values();
-        for(EnumStanjePrekidacRastavljac stanje : stanja){
+        for (EnumStanjePrekidacRastavljac stanje : stanja) {
             sb.append("TS A - 220 kV - ");
             sb.append(this.modul);
             sb.append(" - ");
@@ -91,11 +84,11 @@ public abstract class Prekidac extends Polje implements Napajanje {
         return sb.toString();
     }
 
-    private String posaljiSignalGubitakSF6Upozorenje(){
+    private String posaljiSignalGubitakSF6Upozorenje() {
         StringBuilder sb = new StringBuilder();
 
         EnumProradaPrestanak[] stanja = EnumProradaPrestanak.values();
-        for(EnumProradaPrestanak stanje : stanja){
+        for (EnumProradaPrestanak stanje : stanja) {
             sb.append("TS A - 220 kV - ");
             sb.append(this.modul);
             sb.append(" - ");
@@ -108,11 +101,11 @@ public abstract class Prekidac extends Polje implements Napajanje {
         return sb.toString();
     }
 
-    private String posaljiSignalGubitakN2(){
+    private String posaljiSignalGubitakN2() {
         StringBuilder sb = new StringBuilder();
 
         EnumProradaPrestanak[] stanja = EnumProradaPrestanak.values();
-        for(EnumProradaPrestanak stanje : stanja){
+        for (EnumProradaPrestanak stanje : stanja) {
             sb.append("TS A - 220 kV - ");
             sb.append(this.modul);
             sb.append(" - ");
@@ -125,11 +118,11 @@ public abstract class Prekidac extends Polje implements Napajanje {
         return sb.toString();
     }
 
-    private String posaljiSignalMinTlakUlja(){
+    private String posaljiSignalMinTlakUlja() {
         StringBuilder sb = new StringBuilder();
 
         EnumProradaPrestanak[] stanja = EnumProradaPrestanak.values();
-        for(EnumProradaPrestanak stanje : stanja){
+        for (EnumProradaPrestanak stanje : stanja) {
             sb.append("TS A - 220 kV - ");
             sb.append(this.modul);
             sb.append(" - ");
@@ -142,11 +135,11 @@ public abstract class Prekidac extends Polje implements Napajanje {
         return sb.toString();
     }
 
-    private String posaljiSignalGubitakSF6Blokada(){
+    private String posaljiSignalGubitakSF6Blokada() {
         StringBuilder sb = new StringBuilder();
 
         EnumProradaPrestanak[] stanja = EnumProradaPrestanak.values();
-        for(EnumProradaPrestanak stanje : stanja){
+        for (EnumProradaPrestanak stanje : stanja) {
             sb.append("TS A - 220 kV - ");
             sb.append(this.modul);
             sb.append(" - ");
@@ -159,11 +152,11 @@ public abstract class Prekidac extends Polje implements Napajanje {
         return sb.toString();
     }
 
-    private String posaljiSignalGubitakUlja(){
+    private String posaljiSignalGubitakUlja() {
         StringBuilder sb = new StringBuilder();
 
         EnumProradaPrestanak[] stanja = EnumProradaPrestanak.values();
-        for(EnumProradaPrestanak stanje : stanja){
+        for (EnumProradaPrestanak stanje : stanja) {
             sb.append("TS A - 220 kV - ");
             sb.append(this.modul);
             sb.append(" - ");
@@ -176,11 +169,11 @@ public abstract class Prekidac extends Polje implements Napajanje {
         return sb.toString();
     }
 
-    private String posaljiSignalSF6N2Ulje(){
+    private String posaljiSignalSF6N2Ulje() {
         StringBuilder sb = new StringBuilder();
 
         EnumProradaPrestanak[] stanja = EnumProradaPrestanak.values();
-        for(EnumProradaPrestanak stanje : stanja){
+        for (EnumProradaPrestanak stanje : stanja) {
             sb.append("TS A - 220 kV - ");
             sb.append(this.modul);
             sb.append(" - ");
@@ -193,11 +186,11 @@ public abstract class Prekidac extends Polje implements Napajanje {
         return sb.toString();
     }
 
-    private String posaljiSignalAPUBlokada(){
+    private String posaljiSignalAPUBlokada() {
         StringBuilder sb = new StringBuilder();
 
         EnumProradaPrestanak[] stanja = EnumProradaPrestanak.values();
-        for(EnumProradaPrestanak stanje : stanja){
+        for (EnumProradaPrestanak stanje : stanja) {
             sb.append("TS A - 220 kV - ");
             sb.append(this.modul);
             sb.append(" - ");
@@ -210,11 +203,11 @@ public abstract class Prekidac extends Polje implements Napajanje {
         return sb.toString();
     }
 
-    private String posaljiSignalKvarGrijanja(){
+    private String posaljiSignalKvarGrijanja() {
         StringBuilder sb = new StringBuilder();
 
         EnumProradaPrestanak[] stanja = EnumProradaPrestanak.values();
-        for(EnumProradaPrestanak stanje : stanja){
+        for (EnumProradaPrestanak stanje : stanja) {
             sb.append("TS A - 220 kV - ");
             sb.append(this.modul);
             sb.append(" - ");
@@ -225,6 +218,119 @@ public abstract class Prekidac extends Polje implements Napajanje {
         }
 
         return sb.toString();
+    }
+
+    public String posaljiTrenutneSignalePrekidaca() {
+        return posaljiTrenutniSignalKomanda() +
+                posaljiTrenutniSignalStanje() +
+                posaljiTrenutniSignalGubitakSF6Upozorenje() +
+                posaljiTrenutniSignalGubitakN2() +
+                posaljiTrenutniSignalMinTlakUlja() +
+                posaljiTrenutniSignalGubitakSF6Blokada() +
+                posaljiTrenutniSignalGubitakUlja() +
+                posaljiTrenutniSignalSF6N2Ulje() +
+                posaljiTrenutniSignalAPUBlokada() +
+                posaljiTrenuntiSignalKvarGrijanja();
+    }
+
+    private String posaljiTrenutniSignalKomanda() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - komanda - " +
+                this.komanda +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalStanje() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - stanje - " +
+                this.stanje +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalGubitakSF6Upozorenje() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - gubitak SF6-upozorenje - " +
+                this.gubitakSF6Upozorenje +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalGubitakN2() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - gubitak N2-blokada rada - " +
+                this.gubitakN2 +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalMinTlakUlja() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - min. tlak ulja-blokada uklopa - " +
+                this.minTlakUlja +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalGubitakSF6Blokada() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - gubitak SF6-blokada rada - " +
+                this.gubitakSF6Blokada +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalGubitakUlja() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - gubitak ulja-blokada rada - " +
+                this.gubitakUlja +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalSF6N2Ulje() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - SF6;N2;ulje-blokada rada - " +
+                this.uljeSF6N2 +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalAPUBlokada() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - APU-blokada - " +
+                this.apuBlokada +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenuntiSignalKvarGrijanja() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - kvar grijanja - " +
+                this.kvarGrijanja +
+                System.lineSeparator();
     }
 
     @Override

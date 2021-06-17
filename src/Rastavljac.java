@@ -7,8 +7,6 @@ public abstract class Rastavljac extends Polje implements Napajanje {
 
     boolean napajanje = true;
 
-    // TODO: promjena između izlazznog i uzemljenja
-
     public void ukljuci(Polje polje) {
         if (this.napajanje) {
             this.stanje = EnumStanjePrekidacRastavljac.UKLJUCEN;
@@ -30,12 +28,8 @@ public abstract class Rastavljac extends Polje implements Napajanje {
     }
 
     public String posaljiSignaleRastavljaca() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(posaljiSignalKomanda());
-        sb.append(posaljiSignalStanje());
-
-        return sb.toString();
+        return posaljiSignalKomanda() +
+                posaljiSignalStanje();
     }
 
     private String posaljiSignalKomanda() {
@@ -70,6 +64,31 @@ public abstract class Rastavljac extends Polje implements Napajanje {
         }
 
         return sb.toString();
+    }
+
+    public String posaljiTrenutneSignaleRastavljaca() {
+        return posaljiTrenutniSignalKomanda() +
+                posaljiTrenutniSignalStanje();
+    }
+
+    private String posaljiTrenutniSignalKomanda() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - komanda - " +
+                this.komanda +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalStanje(){
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - stanje - " +
+                this.stanje +
+                System.lineSeparator();
     }
 
     @Override

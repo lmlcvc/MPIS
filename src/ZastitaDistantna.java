@@ -1,6 +1,6 @@
 public class ZastitaDistantna extends Zastita {
 
-    EnumProradaPrestanak iskljucenje = EnumProradaPrestanak.PRESTANAK; // TODO: da li ima ovo?
+    EnumProradaPrestanak iskljucenje = EnumProradaPrestanak.PRESTANAK;
     EnumProradaPrestanak fazaL1Poticaj = EnumProradaPrestanak.PRORADA;
     EnumProradaPrestanak fazaL2Poticaj = EnumProradaPrestanak.PRORADA;
     EnumProradaPrestanak fazaL3Poticaj = EnumProradaPrestanak.PRORADA;
@@ -21,25 +21,21 @@ public class ZastitaDistantna extends Zastita {
     }
 
     public String posaljiSignaleDistantne() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(posaljiSignalIskljucenje());
-        sb.append(posaljiSignalfazaL1());
-        sb.append(posaljiSignalfazaL2());
-        sb.append(posaljiSignalfazaL3());
-        sb.append(posaljiSignalZemljospojPoticaj());
-        sb.append(posaljiSignalDrugiStupanj());
-        sb.append(posaljiSignalTreciStupanj());
-        sb.append(posaljiSignalCetvrtiStupanj());
-        sb.append(posaljiSignalSuprotniSmjer());
-        sb.append(posaljiSignalNjihanjeEnergije());
-        sb.append(posaljiSignalTKSignalPrijem());
-        sb.append(posaljiSignalTKSignalSlanje());
-        sb.append(posaljiSignalTKSignalIskljucenje());
-        sb.append(posaljiSignalNapajanjeNestanak());
-        sb.append(posaljiSignalUredajKvar());
-
-        return sb.toString();
+        return posaljiSignalIskljucenje() +
+                posaljiSignalfazaL1() +
+                posaljiSignalfazaL2() +
+                posaljiSignalfazaL3() +
+                posaljiSignalZemljospojPoticaj() +
+                posaljiSignalDrugiStupanj() +
+                posaljiSignalTreciStupanj() +
+                posaljiSignalCetvrtiStupanj() +
+                posaljiSignalSuprotniSmjer() +
+                posaljiSignalNjihanjeEnergije() +
+                posaljiSignalTKSignalPrijem() +
+                posaljiSignalTKSignalSlanje() +
+                posaljiSignalTKSignalIskljucenje() +
+                posaljiSignalNapajanjeNestanak() +
+                posaljiSignalUredajKvar();
     }
 
     private String posaljiSignalIskljucenje() {
@@ -297,12 +293,177 @@ public class ZastitaDistantna extends Zastita {
         return sb.toString();
     }
 
+    public String posaljiTrenutneSignaleDistantne() {
+        return posaljiTrenutniSignalIskljucenje() +
+                posaljiTrenutniSignalfazaL1() +
+                posaljiTrenutniSignalfazaL2() +
+                posaljiTrenutniSignalfazaL3() +
+                posaljiTrenutniSignalZemljospojPoticaj() +
+                posaljiTrenutniSignalDrugiStupanj() +
+                posaljiTrenutniSignalTreciStupanj() +
+                posaljiTrenutniSignalCetvrtiStupanj() +
+                posaljiTrenutniSignalSuprotniSmjer() +
+                posaljiTrenutniSignalNjihanjeEnergije() +
+                posaljiTrenutniSignalTKSignalPrijem() +
+                posaljiTrenutniSignalTKSignalSlanje() +
+                posaljiTrenutniSignalTKSignalIskljucenje() +
+                posaljiTrenutniSignalNapajanjeNestanak() +
+                posaljiTrenutniSignalUredajKvar();
+    }
+
+    private String posaljiTrenutniSignalIskljucenje() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - isključenje - " +
+                this.iskljucenje +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalfazaL1() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - faza L1-poticaj - " +
+                fazaL1Poticaj +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalfazaL2() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - faza L2-poticaj - " +
+                fazaL2Poticaj +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalfazaL3() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - faza L3-poticaj - " +
+                fazaL3Poticaj +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalZemljospojPoticaj() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - zemljospoj-poticaj - " +
+                this.zemljospojPoticaj +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalDrugiStupanj() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - drugi stupanj-isključenje - " +
+                this.drugiStupanjIskljucenje +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalTreciStupanj() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - treći stupanj-isključenje - " +
+                this.treciStupanjIskljucenje +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalCetvrtiStupanj() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - četvrti stupanj-isključenje - " +
+                this.cetvrtiStupanjIskljucenje +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalSuprotniSmjer() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - suprotni smjer-poticaj - " +
+                this.suprotniSmjerPoticaj +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalNjihanjeEnergije() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - njihanje energije-blokada - " +
+                this.njihanjeEnergijeBlokada +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalTKSignalPrijem() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - TK signal-prijem - " +
+                this.tkSignalPrijem +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalTKSignalSlanje() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - TK signal-slanje - " +
+                this.tkSignalSlanje +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalTKSignalIskljucenje() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - TK signal-isključenje - " +
+                this.tkSignalIskljucenje +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalNapajanjeNestanak() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - napajanje-nestanak - " +
+                this.napajanjeNestanak +
+                System.lineSeparator();
+    }
+
+    private String posaljiTrenutniSignalUredajKvar() {
+        return "TS A - 220 kV - " +
+                this.modul +
+                " - " +
+                this.identifikator +
+                " - uređaj-kvar - " +
+                this.uredajKvar +
+                System.lineSeparator();
+    }
+
     @Override
     public void sekOpremaUp() {
 
     }
 
-    public void zastiteIsk() {
-
-    }
 }

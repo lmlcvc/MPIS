@@ -15,7 +15,7 @@ public class SpojnoPolje extends Polje {
         this.rastavljacUzemljenja = new RastavljacUzemljenja("Rastavljač uzemljenja", "SP");
         this.rastavljacUzemljenja.stanje = EnumStanjePrekidacRastavljac.UKLJUCEN;
 
-        this.prekidac = new PrekidacSF6Koncar("Prekidač SF6", "SP");
+        this.prekidac = new PrekidacSF6Koncar("Prekidač", "SP");
         this.prekidac.stanje = EnumStanjePrekidacRastavljac.ISKLJUCEN;
     }
 

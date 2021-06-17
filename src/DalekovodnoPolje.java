@@ -31,15 +31,15 @@ public class DalekovodnoPolje extends Polje {
         this.rastavljacIzlazni = new RastavljacIzlazni("Izlazni rastavljač", "DV");
         this.rastavljacIzlazni.stanje = EnumStanjePrekidacRastavljac.UKLJUCEN;
 
-        this.prekidac = new PrekidacSF6Koncar("Prekidač SF6", "DV");
+        this.prekidac = new PrekidacSF6Koncar("Prekidač", "DV");
         this.prekidac.stanje = EnumStanjePrekidacRastavljac.ISKLJUCEN;
 
         this.distantnaZastita = new ZastitaDistantna("Distantna zaštita", "DV");
         this.nadstrujnaZastita = new ZastitaNadstrujna("Nadstrujna zaštita", "DV");
         this.apu = new Apu("APU", "DV");
 
-        this.mprs = new MjerniPretvornikRadneSnage();
-        this.mpn = new MjerniPretvornikNapona();
-        this.brojilo = new Brojilo();
+        this.mprs = new MjerniPretvornikRadneSnage("Mjerni pretvornik radne snage", "DV");
+        this.mpn = new MjerniPretvornikNapona("Mjerni pretvornik napona", "DV");
+        this.brojilo = new Brojilo("Brojilo jalove energije", "DV");
     }
 }
